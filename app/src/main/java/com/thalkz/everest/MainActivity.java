@@ -3,6 +3,8 @@ package com.thalkz.everest;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -15,9 +17,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /** Setting the action bar */
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        /** Setting the PageViewer */
+        ViewPager pager = (ViewPager) findViewById(R.id.pager);
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment_Pager pagerAdapter = new Fragment_Pager(fm);
+        pager.setAdapter(pagerAdapter);
+
+        /** Creating a fab */
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
