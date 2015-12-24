@@ -7,18 +7,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * RankFragment displays the players rankings in order.
+ * RankingFragment displays the players rankings in order.
  */
 
-public class RankFragment extends Fragment {
+public class RankingFragment extends Fragment {
 
-    public RankFragment() {
+    public RankingFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_rank, container, false);
+        View view = inflater.inflate(R.layout.fragment_ranking, container, false);
 
         return view;
     }

@@ -19,7 +19,7 @@ public class Fragment_Pager extends FragmentPagerAdapter {
             case 0:
                 return new JournalFragment();
             case 1:
-                return new RankFragment();
+                return new RankingFragment();
             default:
                 return null;
         }

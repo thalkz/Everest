@@ -11,7 +11,21 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
+import com.microsoft.windowsazure.mobileservices.MobileServiceList;
+import com.microsoft.windowsazure.mobileservices.table.MobileServiceTable;
+import com.microsoft.windowsazure.mobileservices.table.query.Query;
+import com.microsoft.windowsazure.mobileservices.table.query.QueryOrder;
+import com.microsoft.windowsazure.mobileservices.table.sync.MobileServiceSyncContext;
+import com.microsoft.windowsazure.mobileservices.table.sync.MobileServiceSyncTable;
+import com.microsoft.windowsazure.mobileservices.table.sync.localstore.ColumnDataType;
+import com.microsoft.windowsazure.mobileservices.table.sync.localstore.SQLiteLocalStore;
+import com.microsoft.windowsazure.mobileservices.table.sync.synchandler.SimpleSyncHandler;
+
 public class MainActivity extends AppCompatActivity {
+
+    private MobileServiceSyncTable<Player> rankingTable;
+    public static int INITIAL_POINTS = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        /** Connecting to DataBase */
+
     }
 
     @Override
