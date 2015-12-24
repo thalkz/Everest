@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,9 +23,15 @@ import com.microsoft.windowsazure.mobileservices.table.sync.localstore.ColumnDat
 import com.microsoft.windowsazure.mobileservices.table.sync.localstore.SQLiteLocalStore;
 import com.microsoft.windowsazure.mobileservices.table.sync.synchandler.SimpleSyncHandler;
 
+import java.net.MalformedURLException;
+import java.util.HashMap;
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
 
-    private MobileServiceSyncTable<Player> rankingTable;
+    private MobileServiceClient client;
+    private MobileServiceSyncTable<Player> journalTable;
+
     public static int INITIAL_POINTS = 1000;
 
     @Override
@@ -53,7 +60,28 @@ public class MainActivity extends AppCompatActivity {
         });
 
         /** Connecting to DataBase */
+        //Inside the Try-catch : code used to connect to the Microsoft Azure Server and to initialise the local store
+        try {
+            client = new MobileServiceClient(
+                    "https://elocaps.azure-mobile.net",
+                    "jlgUVfjzqDcVBUfeqJYIlBBnhJfTdP97",
+                    this);
 
+            //pullQuery = client.getTable(Centralien.class).where().orderBy("elo", QueryOrder.Descending);
+
+            // Get the Mobile Service Table instance to use This Table will sync with Azure Server
+            journalTable = client.getSyncTable(Player.class);
+
+
+        } catch (MalformedURLException e) {
+            Log.w("Connection to Client", e.toString());
+        } catch (Exception e) {
+            Throwable t = e;
+            while (t.getCause() != null) {
+                t = t.getCause();
+            }
+            Log.w("onCreate: ", t.getMessage());
+        }
     }
 
     @Override
