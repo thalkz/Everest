@@ -5,21 +5,23 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.microsoft.windowsazure.mobileservices.MobileServiceList;
-import com.microsoft.windowsazure.mobileservices.table.MobileServiceTable;
 import com.microsoft.windowsazure.mobileservices.table.query.Query;
 import com.microsoft.windowsazure.mobileservices.table.query.QueryOrder;
 import com.microsoft.windowsazure.mobileservices.table.sync.MobileServiceSyncContext;
@@ -38,17 +40,21 @@ import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static int INITIAL_POINTS = 1000;
+    public Event[] eList;
     private MobileServiceClient client;
     private MobileServiceSyncTable<Event> eTable;
     private Query ePullQuery;
-
-    public Event[] eList;
-    public static int INITIAL_POINTS = 1000;
+    private Context context;
+    public static JournalAdapter journalAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /** Init context */
+        context = this;
 
         /** Setting the action bar */
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -57,7 +63,8 @@ public class MainActivity extends AppCompatActivity {
         /** Setting the PageViewer */
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
         FragmentManager fm = getSupportFragmentManager();
-        Fragment_Pager pagerAdapter = new Fragment_Pager(fm);
+        journalAdapter = new JournalAdapter(eList);
+        Fragment_Pager pagerAdapter = new Fragment_Pager(fm, context, journalAdapter);
         pager.setAdapter(pagerAdapter);
 
         /** Creating a fab */
@@ -75,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
             client = new MobileServiceClient(
                     "https://elocaps.azure-mobile.net",
                     "jlgUVfjzqDcVBUfeqJYIlBBnhJfTdP97",
-                    this);
+                    context);
 
             ePullQuery = client.getTable(Event.class).where().orderBy("__createdAt", QueryOrder.Ascending);
 
@@ -83,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
             eTable = client.getSyncTable(Event.class);
 
+            eRefreshLocalTable();
             syncAsync();
             eRefreshTable();
 
@@ -115,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
 
             try {
-                Event testEvent = new Event(1, "yes", 2015,12,24,4,16,49,0, "Pops");
+                Event testEvent = new Event(1, "yes", 2015, 12, 24, 4, 16, 49, 0, "Pops");
                 eTable.insert(testEvent).get();
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -128,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void eRefreshTable(){
+    public void eRefreshTable() {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
@@ -147,7 +155,8 @@ public class MainActivity extends AppCompatActivity {
                             try {
                                 eList = new Event[arrayList.size()];
                                 arrayList.toArray(eList);
-                                //rangAdapter.updateData(listeCentraliens);
+
+                                journalAdapter.updateData(eList);
 
                             } catch (Exception e) {
                                 Log.e("Error", e.toString());
@@ -155,14 +164,33 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
                 } catch (Exception e) {
-                    Log.e("Error in Fetching Data", e.toString());
+                    Log.e("eRefreshTable", e.toString());
                 }
                 return null;
             }
         }.execute();
     }
 
-    public void eSetLocalStore(){
+    public void eRefreshLocalTable() {
+
+        try {
+            final MobileServiceList<Event> result = eTable.read(ePullQuery).get();
+            List<Event> arrayList = new ArrayList<>();
+
+            for (Event e : result) {arrayList.add(e);}
+
+            eList = new Event[arrayList.size()];
+            arrayList.toArray(eList);
+
+            journalAdapter.updateData(eList);
+
+        } catch (Exception e) {
+            Log.e("eRefreshLocalTable", e.toString());
+        }
+
+    }
+
+    public void eSetLocalStore() {
         //Set up the local Store
         SQLiteLocalStore eLocalStore = new SQLiteLocalStore(client.getContext(), "Event", null, 1);
         SimpleSyncHandler handler = new SimpleSyncHandler();

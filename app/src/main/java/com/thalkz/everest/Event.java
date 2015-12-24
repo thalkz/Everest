@@ -49,4 +49,49 @@ public class Event {
         this(eType,eMessage, "" , "" , 0,0,eYear,eMonth,eDayOfMonth,eDayOfWeek, eHour,eMin,eSeason,ePoster);
 
     }
+
+    public String getMessage() {
+        return eMessage;
+    }
+
+    public String getFormattedDate() {
+
+        return Integer.toString(eDayOfMonth) + " " + getShortMonthName(eMonth) + " à " + Integer.toString(eHour) + ":" + Integer.toString(eMin);
+
+    }
+
+    public String getPoster() {
+        return "posté par " + ePoster;
+    }
+
+    public String getShortMonthName(int m){
+        switch(m){
+            case 0:
+                return "Jan.";
+            case 1:
+                return "Fév.";
+            case 2:
+                return "Mar.";
+            case 3:
+                return "Avr.";
+            case 4:
+                return "Mai.";
+            case 5:
+                return "Juin.";
+            case 6:
+                return "Juil.";
+            case 7:
+                return "Aou.";
+            case 8:
+                return "Sep.";
+            case 9:
+                return "Oct.";
+            case 10:
+                return "Nov.";
+            case 11:
+                return "Déc.";
+        }
+        return null;
+    }
+
 }
