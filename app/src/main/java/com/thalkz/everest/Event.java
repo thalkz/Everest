@@ -6,7 +6,7 @@ package com.thalkz.everest;
  */
 public class Event {
 
-    private int Id;
+    private String Id;
     private int eType;
     private String eMessage;
     private String ePlayer1;

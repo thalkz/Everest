@@ -82,11 +82,9 @@ public class MainActivity extends AppCompatActivity {
             eSetLocalStore();
 
             eTable = client.getSyncTable(Event.class);
+
             syncAsync();
             eRefreshTable();
-
-            Event testEvent = new Event(1, "nope", 2015,12,24,4,16,49,0, "Pops");
-            eTable.insert(testEvent).get();
 
         } catch (MalformedURLException e) {
             Log.w("Connection to Client", e.toString());
@@ -115,6 +113,15 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+
+            try {
+                Event testEvent = new Event(1, "yes", 2015,12,24,4,16,49,0, "Pops");
+                eTable.insert(testEvent).get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
             return true;
         }
 
@@ -143,12 +150,12 @@ public class MainActivity extends AppCompatActivity {
                                 //rangAdapter.updateData(listeCentraliens);
 
                             } catch (Exception e) {
-                                Log.w("Error", e.toString());
+                                Log.e("Error", e.toString());
                             }
                         }
                     });
                 } catch (Exception e) {
-                    Log.v("Error in Fetching Data", e.toString());
+                    Log.e("Error in Fetching Data", e.toString());
                 }
                 return null;
             }
@@ -173,24 +180,22 @@ public class MainActivity extends AppCompatActivity {
         eTableDefinition.put("eYear", ColumnDataType.Integer);
         eTableDefinition.put("eMonth", ColumnDataType.Integer);
         eTableDefinition.put("eDayOfMonth", ColumnDataType.Integer);
-        eTableDefinition.put("eDayofWeek", ColumnDataType.Integer);
+        eTableDefinition.put("eDayOfWeek", ColumnDataType.Integer);
         eTableDefinition.put("eHour", ColumnDataType.Integer);
         eTableDefinition.put("eMin", ColumnDataType.Integer);
         eTableDefinition.put("eSeason", ColumnDataType.Integer);
         eTableDefinition.put("ePoster", ColumnDataType.String);
-        eTableDefinition.put("__createdAt", ColumnDataType.Date);
-
 
         //Initialize the local store
         try {
             eLocalStore.defineTable("Event", eTableDefinition);
             syncContext.initialize(eLocalStore, handler).get();
         } catch (MobileServiceLocalStoreException e) {
-            e.printStackTrace();
+            Log.e("MSLocalStoreException", e.getMessage());
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Log.e("InterrException", e.getMessage());
         } catch (ExecutionException e) {
-            e.printStackTrace();
+            Log.e("ExecException", e.getMessage());
         }
     }
 
@@ -201,18 +206,16 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 protected Void doInBackground(Void... params) {
                     try {
-                        Log.v("hi","hi");
                         client.getSyncContext().push().get();
                         eTable.pull(ePullQuery).get();
 
                     } catch (Exception exception) {
-                        Log.w("syncAsync", exception.toString());
+                        Log.e("syncAsync", exception.toString());
                     }
                     return null;
                 }
             }.execute();
         }
-        Log.v("hi","hi");
     }
 
     private boolean isNetworkAvailable() {
