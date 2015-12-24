@@ -1,8 +1,8 @@
 package com.thalkz.everest;
 
 /**
- * Player is the object referring to a user.
- * It contains every information Everest needs about the player.
+ * Player is the object referring to a user
+ * It contains every information Everest needs about the player
  */
 
 public class Player {
