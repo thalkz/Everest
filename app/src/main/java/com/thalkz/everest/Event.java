@@ -66,32 +66,33 @@ public class Event {
 
     public String getShortMonthName(int m){
         switch(m){
-            case 0:
-                return "Jan.";
             case 1:
-                return "Fév.";
+                return "Jan.";
             case 2:
-                return "Mar.";
+                return "Fév.";
             case 3:
-                return "Avr.";
+                return "Mar.";
             case 4:
-                return "Mai.";
+                return "Avr.";
             case 5:
-                return "Juin.";
+                return "Mai.";
             case 6:
-                return "Juil.";
+                return "Juin.";
             case 7:
-                return "Aou.";
+                return "Juil.";
             case 8:
-                return "Sep.";
+                return "Aou.";
             case 9:
-                return "Oct.";
+                return "Sep.";
             case 10:
-                return "Nov.";
+                return "Oct.";
             case 11:
+                return "Nov.";
+            case 12:
                 return "Déc.";
+            default:
+                return "";
         }
-        return null;
     }
 
 }

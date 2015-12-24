@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
 
             try {
-                Event testEvent = new Event(1, "yes", 2015, 12, 24, 4, 16, 49, 0, "Pops");
+                Event testEvent = new Event(1, "Pops (+9) a battu Shila (-4) de justesse", 2015, 12, 24, 4, 16, 49, 0, "Pops");
                 eTable.insert(testEvent).get();
             } catch (InterruptedException e) {
                 e.printStackTrace();
