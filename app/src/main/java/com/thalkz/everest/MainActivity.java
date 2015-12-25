@@ -93,28 +93,31 @@ public class MainActivity extends AppCompatActivity {
                     context);
 
             /** Pull Queries */
-            ePullQuery = client.getTable(Event.class).where().orderBy("__createdAt", QueryOrder.Descending);
-            pPullQuery = client.getTable(Player.class).where().orderBy("pPoints", QueryOrder.Descending);
+            //pPullQuery = client.getTable(Player.class).where().orderBy("pPoints", QueryOrder.Descending);
+            ePullQuery = client.getTable(Event.class).where().orderBy("__createdAt", QueryOrder.Ascending);
+
 
             /** initializing Local Stores */
             eSetLocalStore();
-            pSetLocalStore();
+            //pSetLocalStore();
 
             /** setting syncTables */
             eTable = client.getSyncTable(Event.class);
-            pTable = client.getSyncTable(Player.class);
+            //pTable = client.getSyncTable(Player.class);
 
             /** getting Tables from local store (fast) */
+            //pRefreshLocalTable();
             eRefreshLocalTable();
-            pRefreshLocalTable();
 
             /** syncing local and cloud if network is available */
+            //pSyncAsync();
             eSyncAsync();
-            pSyncAsync();
+
 
             /** getting Tables from cloud (slow) */
+            //pRefreshTable();
             eRefreshTable();
-            pRefreshTable();
+
 
         } catch (MalformedURLException e) {
             Log.w("Connection to Client", e.toString());
@@ -145,11 +148,11 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
 
             try {
-                /*Event testEvent = new Event(1, "Pops (+9) a battu Shila (-4) de justesse", 2015, 12, 24, 4, 16, 49, 0, "Pops");
-                eTable.insert(testEvent).get();*/
+                Event testEvent = new Event(1, "Pops (+9) a battu Shila (-4) de justesse", 2015, 12, 24, 4, 16, 49, 0, "Pops");
+                eTable.insert(testEvent).get();
 
-                Player testPlayer = new Player("Pops","T56","2A");
-                pTable.insert(testPlayer).get();
+                /*Player testPlayer = new Player("Pops","T56","2A");
+                pTable.insert(testPlayer).get();*/
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -246,7 +249,7 @@ public class MainActivity extends AppCompatActivity {
             journalAdapter.updateData(eList);
 
         } catch (Exception e) {
-            Log.e("eRefreshLocalTable", e.toString());
+            Log.e("eRefreshLocalTable", e.getMessage()+ " cause " + e.getCause());
         }
 
     }
@@ -293,7 +296,6 @@ public class MainActivity extends AppCompatActivity {
         eTableDefinition.put("eMin", ColumnDataType.Integer);
         eTableDefinition.put("eSeason", ColumnDataType.Integer);
         eTableDefinition.put("ePoster", ColumnDataType.String);
-        eTableDefinition.put("__createdAt", ColumnDataType.Date);
 
         //Initialize the local store
         try {
