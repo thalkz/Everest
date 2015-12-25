@@ -22,6 +22,7 @@ import android.view.View;
 
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.microsoft.windowsazure.mobileservices.MobileServiceList;
+import com.microsoft.windowsazure.mobileservices.table.MobileServiceTable;
 import com.microsoft.windowsazure.mobileservices.table.query.Query;
 import com.microsoft.windowsazure.mobileservices.table.query.QueryOrder;
 import com.microsoft.windowsazure.mobileservices.table.sync.MobileServiceSyncContext;
@@ -46,9 +47,8 @@ public class MainActivity extends AppCompatActivity {
     private Event[] eList;
     private Player[] pList;
     private MobileServiceSyncTable<Event> eTable;
-    private MobileServiceSyncTable<Player> pTable;
+    private MobileServiceTable<Player> pTable;
     private Query ePullQuery;
-    private Query pPullQuery;
 
     public static int INITIAL_POINTS = 1000;
     public static JournalAdapter journalAdapter;
@@ -93,29 +93,25 @@ public class MainActivity extends AppCompatActivity {
                     context);
 
             /** Pull Queries */
-            //pPullQuery = client.getTable(Player.class).where().orderBy("pPoints", QueryOrder.Descending);
             ePullQuery = client.getTable(Event.class).where().orderBy("__createdAt", QueryOrder.Ascending);
 
 
             /** initializing Local Stores */
             eSetLocalStore();
-            //pSetLocalStore();
 
-            /** setting syncTables */
+            /** setting Tables */
             eTable = client.getSyncTable(Event.class);
-            //pTable = client.getSyncTable(Player.class);
+            pTable = client.getTable(Player.class);
 
             /** getting Tables from local store (fast) */
-            //pRefreshLocalTable();
             eRefreshLocalTable();
 
             /** syncing local and cloud if network is available */
-            //pSyncAsync();
             eSyncAsync();
 
 
             /** getting Tables from cloud (slow) */
-            //pRefreshTable();
+            pRefreshTable();
             eRefreshTable();
 
 
@@ -205,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    final MobileServiceList<Player> result = pTable.read(pPullQuery).get();
+                    final MobileServiceList<Player> result = pTable.where().orderBy("pPoints", QueryOrder.Ascending).execute().get();
                     runOnUiThread(new Runnable() {
 
                         @Override
@@ -254,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void pRefreshLocalTable() {
+    /*public void pRefreshLocalTable() {
 
         try {
             final MobileServiceList<Player> result = pTable.read(pPullQuery).get();
@@ -271,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
             Log.e("pRefreshLocalTable", e.toString());
         }
 
-    }
+    }*/
 
     public void eSetLocalStore() {
         //Set up the local Store
@@ -310,7 +306,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void pSetLocalStore() {
+    /*public void pSetLocalStore() {
         //Set up the local Store
         SQLiteLocalStore pLocalStore = new SQLiteLocalStore(client.getContext(), "Player", null, 1);
         SimpleSyncHandler handler = new SimpleSyncHandler();
@@ -340,7 +336,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (ExecutionException e) {
             Log.e("ExecException", e.getMessage());
         }
-    }
+    }*/
 
     public void eSyncAsync() {
         if (isNetworkAvailable()) {
@@ -361,7 +357,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void pSyncAsync() {
+    /*public void pSyncAsync() {
         if (isNetworkAvailable()) {
             new AsyncTask<Void, Void, Void>() {
 
@@ -378,7 +374,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }.execute();
         }
-    }
+    }*/
 
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
