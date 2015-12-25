@@ -16,7 +16,7 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 /**
- * JournalAdapter binds data to the Journal
+ * JournalAdapter binds data to the Journal recyclerView
  */
 
 public class JournalAdapter extends RecyclerView.Adapter<JournalAdapter.ViewHolder> {

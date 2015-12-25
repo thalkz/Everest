@@ -33,10 +33,6 @@ public class Player {
         return pPoints;
     }
 
-    public void setPoints(int pPoints) {
-        this.pPoints = pPoints;
-    }
-
     public String getName() {
         return pName;
     }
@@ -52,6 +48,8 @@ public class Player {
     public String getId() {
         return Id;
     }
+
+    public int getIndic(){ return pIndicator; }
 
     public void addVictory(){
         pVictories++;

@@ -42,27 +42,32 @@ import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Event[] eList;
     private MobileServiceClient client;
+    private Event[] eList;
+    private Player[] pList;
     private MobileServiceSyncTable<Event> eTable;
+    private MobileServiceSyncTable<Player> pTable;
     private Query ePullQuery;
-    private Context context;
+    private Query pPullQuery;
 
     public static int INITIAL_POINTS = 1000;
     public static JournalAdapter journalAdapter;
-    //public static RankingAdapter rankingAdapter;
+    public static RankingAdapter rankingAdapter;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        /** Init context */
-        context = this;
+        this.context = this;
 
         /** Setting the action bar */
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        /** Initilize rankingAdapter and journalAdapter */
+        journalAdapter = new JournalAdapter(new Event[0]);
+        rankingAdapter = new RankingAdapter(new Player[0]);
 
         /** Setting the PageViewer */
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
@@ -87,15 +92,29 @@ public class MainActivity extends AppCompatActivity {
                     "jlgUVfjzqDcVBUfeqJYIlBBnhJfTdP97",
                     context);
 
-            ePullQuery = client.getTable(Event.class).where().orderBy("__createdAt", QueryOrder.Ascending);
+            /** Pull Queries */
+            ePullQuery = client.getTable(Event.class).where().orderBy("__createdAt", QueryOrder.Descending);
+            pPullQuery = client.getTable(Player.class).where().orderBy("pPoints", QueryOrder.Descending);
 
+            /** initializing Local Stores */
             eSetLocalStore();
+            pSetLocalStore();
 
+            /** setting syncTables */
             eTable = client.getSyncTable(Event.class);
+            pTable = client.getSyncTable(Player.class);
 
+            /** getting Tables from local store (fast) */
             eRefreshLocalTable();
-            syncAsync();
+            pRefreshLocalTable();
+
+            /** syncing local and cloud if network is available */
+            eSyncAsync();
+            pSyncAsync();
+
+            /** getting Tables from cloud (slow) */
             eRefreshTable();
+            pRefreshTable();
 
         } catch (MalformedURLException e) {
             Log.w("Connection to Client", e.toString());
@@ -126,8 +145,12 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
 
             try {
-                Event testEvent = new Event(1, "Pops (+9) a battu Shila (-4) de justesse", 2015, 12, 24, 4, 16, 49, 0, "Pops");
-                eTable.insert(testEvent).get();
+                /*Event testEvent = new Event(1, "Pops (+9) a battu Shila (-4) de justesse", 2015, 12, 24, 4, 16, 49, 0, "Pops");
+                eTable.insert(testEvent).get();*/
+
+                Player testPlayer = new Player("Pops","T56","2A");
+                pTable.insert(testPlayer).get();
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
@@ -174,6 +197,41 @@ public class MainActivity extends AppCompatActivity {
         }.execute();
     }
 
+    public void pRefreshTable() {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                try {
+                    final MobileServiceList<Player> result = pTable.read(pPullQuery).get();
+                    runOnUiThread(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            List<Player> arrayList = new ArrayList<>();
+
+                            for (Player p : result) {
+                                arrayList.add(p);
+                            }
+
+                            try {
+                                pList = new Player[arrayList.size()];
+                                arrayList.toArray(pList);
+
+                                rankingAdapter.updateData(pList);
+
+                            } catch (Exception e) {
+                                Log.e("Error", e.toString());
+                            }
+                        }
+                    });
+                } catch (Exception e) {
+                    Log.e("pRefreshTable", e.toString());
+                }
+                return null;
+            }
+        }.execute();
+    }
+
     public void eRefreshLocalTable() {
 
         try {
@@ -189,6 +247,25 @@ public class MainActivity extends AppCompatActivity {
 
         } catch (Exception e) {
             Log.e("eRefreshLocalTable", e.toString());
+        }
+
+    }
+
+    public void pRefreshLocalTable() {
+
+        try {
+            final MobileServiceList<Player> result = pTable.read(pPullQuery).get();
+            List<Player> arrayList = new ArrayList<>();
+
+            for (Player p : result) {arrayList.add(p);}
+
+            pList = new Player[arrayList.size()];
+            arrayList.toArray(pList);
+
+            rankingAdapter.updateData(pList);
+
+        } catch (Exception e) {
+            Log.e("pRefreshLocalTable", e.toString());
         }
 
     }
@@ -216,6 +293,7 @@ public class MainActivity extends AppCompatActivity {
         eTableDefinition.put("eMin", ColumnDataType.Integer);
         eTableDefinition.put("eSeason", ColumnDataType.Integer);
         eTableDefinition.put("ePoster", ColumnDataType.String);
+        eTableDefinition.put("__createdAt", ColumnDataType.Date);
 
         //Initialize the local store
         try {
@@ -230,7 +308,39 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void syncAsync() {
+    public void pSetLocalStore() {
+        //Set up the local Store
+        SQLiteLocalStore pLocalStore = new SQLiteLocalStore(client.getContext(), "Player", null, 1);
+        SimpleSyncHandler handler = new SimpleSyncHandler();
+        MobileServiceSyncContext syncContext = client.getSyncContext();
+
+        //Set up the table definition of the local store
+        Map<String, ColumnDataType> pTableDefinition = new HashMap<>();
+        pTableDefinition.put("Id", ColumnDataType.String);
+        pTableDefinition.put("pName", ColumnDataType.String);
+        pTableDefinition.put("pPoints", ColumnDataType.Integer);
+        pTableDefinition.put("pVictories", ColumnDataType.Integer);
+        pTableDefinition.put("pDefeats", ColumnDataType.Integer);
+        pTableDefinition.put("pIndicator", ColumnDataType.Integer);
+        pTableDefinition.put("pFloor", ColumnDataType.String);
+        pTableDefinition.put("pPromo", ColumnDataType.String);
+
+        //Initialize the local store
+        try {
+
+            pLocalStore.defineTable("Player", pTableDefinition);
+            syncContext.initialize(pLocalStore, handler).get();
+
+        } catch (MobileServiceLocalStoreException e) {
+            Log.e("MSLocalStoreException", e.getMessage());
+        } catch (InterruptedException e) {
+            Log.e("InterrException", e.getMessage());
+        } catch (ExecutionException e) {
+            Log.e("ExecException", e.getMessage());
+        }
+    }
+
+    public void eSyncAsync() {
         if (isNetworkAvailable()) {
             new AsyncTask<Void, Void, Void>() {
 
@@ -241,7 +351,26 @@ public class MainActivity extends AppCompatActivity {
                         eTable.pull(ePullQuery).get();
 
                     } catch (Exception exception) {
-                        Log.e("syncAsync", exception.toString());
+                        Log.e("esyncAsync", exception.toString());
+                    }
+                    return null;
+                }
+            }.execute();
+        }
+    }
+
+    public void pSyncAsync() {
+        if (isNetworkAvailable()) {
+            new AsyncTask<Void, Void, Void>() {
+
+                @Override
+                protected Void doInBackground(Void... params) {
+                    try {
+                        client.getSyncContext().push().get();
+                        pTable.pull(pPullQuery).get();
+
+                    } catch (Exception exception) {
+                        Log.e("psyncAsync", exception.toString());
                     }
                     return null;
                 }
