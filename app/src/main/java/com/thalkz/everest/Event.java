@@ -1,5 +1,7 @@
 package com.thalkz.everest;
 
+import java.util.Calendar;
+
 /**
  * An Event is an item of the Journal
  * It can either be a match, a message or something else to display in the Journal
@@ -56,8 +58,19 @@ public class Event {
 
     public String getFormattedDate() {
 
-        return Integer.toString(eDayOfMonth) + " " + getShortMonthName(eMonth) + " à " + Integer.toString(eHour) + ":" + Integer.toString(eMin);
+        Calendar now = Calendar.getInstance();
+        int DayOfMonth = now.get(Calendar.DAY_OF_MONTH);
+        int Month = now.get(Calendar.MONTH)+1;
+        int Year = now.get(Calendar.YEAR);
 
+        if(DayOfMonth==eDayOfMonth&&Month==eMonth&&Year==eYear){
+            return "Ajd à " + Integer.toString(eHour) + ":" + Integer.toString(eMin);
+        }else if(DayOfMonth==(eDayOfMonth+1)&&Month==eMonth&&Year==eYear)
+        {
+            return "Hier à " + Integer.toString(eHour) + ":" + Integer.toString(eMin);
+        }else{
+            return Integer.toString(eDayOfMonth) + " " + getShortMonthName(eMonth) + " à " + Integer.toString(eHour) + ":" + Integer.toString(eMin);
+        }
     }
 
     public String getPoster() {

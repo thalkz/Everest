@@ -33,6 +33,8 @@ import com.microsoft.windowsazure.mobileservices.table.sync.synchandler.SimpleSy
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,12 +42,13 @@ import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static int INITIAL_POINTS = 1000;
-    public Event[] eList;
+    private Event[] eList;
     private MobileServiceClient client;
     private MobileServiceSyncTable<Event> eTable;
     private Query ePullQuery;
     private Context context;
+
+    public static int INITIAL_POINTS = 1000;
     public static JournalAdapter journalAdapter;
 
     @Override
