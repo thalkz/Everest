@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static int INITIAL_POINTS = 1000;
     public static JournalAdapter journalAdapter;
+    //public static RankingAdapter rankingAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +67,7 @@ public class MainActivity extends AppCompatActivity {
         /** Setting the PageViewer */
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
         FragmentManager fm = getSupportFragmentManager();
-        journalAdapter = new JournalAdapter(eList);
-        Fragment_Pager pagerAdapter = new Fragment_Pager(fm, context, journalAdapter);
+        Fragment_Pager pagerAdapter = new Fragment_Pager(fm);
         pager.setAdapter(pagerAdapter);
 
         /** Creating a fab */
