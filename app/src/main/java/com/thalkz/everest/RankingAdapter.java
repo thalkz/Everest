@@ -6,7 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.amulyakhare.textdrawable.TextDrawable;
 
 /**
  * RankingAdapter binds data to the Ranking recyclerView
@@ -48,7 +51,10 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHold
 
         String rank = Integer.toString(position+1);
 
-        viewHolder.rank.setText(rank);
+        TextDrawable drawable = TextDrawable.builder()
+                .buildRound(rank, R.color.colorPrimary); //This can be changed to a real color using getResources().getColor()
+        viewHolder.rank.setImageDrawable(drawable);
+
         viewHolder.name.setText(itemsData[position].getName());
         viewHolder.vicDef.setText(vicDefText);
         viewHolder.points.setText(pointsText);
@@ -76,7 +82,7 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHold
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         public FrameLayout cv;
-        public TextView rank;
+        public ImageView rank;
         public TextView name;
         public TextView vicDef;
         public TextView points;
@@ -86,7 +92,7 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHold
             super(itemLayoutView);
 
             cv = (FrameLayout) itemLayoutView.findViewById(R.id.player_cv);
-            rank = (TextView) itemLayoutView.findViewById(R.id.player_rank);
+            rank = (ImageView) itemLayoutView.findViewById(R.id.player_rank);
             name = (TextView) itemLayoutView.findViewById(R.id.player_name);
             vicDef = (TextView) itemLayoutView.findViewById(R.id.player_vic_def);
             points = (TextView) itemLayoutView.findViewById(R.id.player_points);
