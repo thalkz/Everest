@@ -1,6 +1,7 @@
 package com.thalkz.everest;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -23,9 +24,11 @@ import org.w3c.dom.Text;
 public class JournalAdapter extends RecyclerView.Adapter<JournalAdapter.ViewHolder> {
 
     private Event[] itemsData;
+    Context context;
 
-    public JournalAdapter(Event[] itemsData) {
+    public JournalAdapter(Event[] itemsData, Context context) {
         this.itemsData = itemsData;
+        this.context = context;
     }
 
     @Override
@@ -50,6 +53,9 @@ public class JournalAdapter extends RecyclerView.Adapter<JournalAdapter.ViewHold
 
             @Override
             public void onClick(View view) {
+
+                Intent eventDetailIntent = new Intent(context, EventDetailActivity.class);
+                context.startActivity(eventDetailIntent);
 
             }
         });

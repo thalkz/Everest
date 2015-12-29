@@ -1,6 +1,7 @@
 package com.thalkz.everest;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
@@ -70,6 +71,9 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHold
 
             @Override
             public void onClick(View view) {
+
+                Intent profilIntent = new Intent(context, ProfilActivity.class);
+                context.startActivity(profilIntent);
 
             }
         });

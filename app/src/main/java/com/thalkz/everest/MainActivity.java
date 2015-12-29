@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         /** Initilize rankingAdapter and journalAdapter */
-        journalAdapter = new JournalAdapter(new Event[0]);
+        journalAdapter = new JournalAdapter(new Event[0], this);
         rankingAdapter = new RankingAdapter(new Player[0], this);
 
         /** Setting the PageViewer */
