@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -66,7 +67,7 @@ public class JournalAdapter extends RecyclerView.Adapter<JournalAdapter.ViewHold
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        public CardView cv;
+        public FrameLayout cv;
         public TextView msg;
         public TextView date;
         public TextView poster;
@@ -74,7 +75,7 @@ public class JournalAdapter extends RecyclerView.Adapter<JournalAdapter.ViewHold
         public ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
 
-            cv = (CardView) itemLayoutView.findViewById(R.id.event_cv);
+            cv = (FrameLayout) itemLayoutView.findViewById(R.id.event_cv);
             msg = (TextView) itemLayoutView.findViewById(R.id.event_msg);
             date = (TextView) itemLayoutView.findViewById(R.id.event_date);
             poster = (TextView) itemLayoutView.findViewById(R.id.event_poster);
