@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 public class Fragment_Pager extends FragmentPagerAdapter {
 
-    final int PAGE_COUNT = 2;
+    final int PAGE_COUNT = 3;
 
     public Fragment_Pager(FragmentManager fm) {
         super(fm);
@@ -22,6 +22,8 @@ public class Fragment_Pager extends FragmentPagerAdapter {
                 return new JournalFragment();
             case 1:
                 return new RankingFragment();
+            case 2:
+                return new UserProfilFragment();
             default:
                 return null;
         }

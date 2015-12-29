@@ -51,7 +51,7 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHold
         }else if(itemsData[position].getIndic()==1){
             indic = ContextCompat.getDrawable(context, R.drawable.ic_up);
         }else{
-            indic = ContextCompat.getDrawable(context, R.drawable.ic_sameRank);
+            indic = ContextCompat.getDrawable(context, R.drawable.ic_same_rank);
         }
 
         String rank = Integer.toString(position+1);
