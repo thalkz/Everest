@@ -5,9 +5,7 @@
     android:layout_height="wrap_content"
     android:minHeight="?android:listPreferredItemHeight"
     android:clickable="true"
-    android:foreground="?android:attr/selectableItemBackground"
-
-    >
+    android:foreground="?android:attr/selectableItemBackground">
 
 
     <RelativeLayout
