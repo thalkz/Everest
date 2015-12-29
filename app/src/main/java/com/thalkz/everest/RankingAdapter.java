@@ -1,5 +1,8 @@
 package com.thalkz.everest;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,9 +21,11 @@ import com.amulyakhare.textdrawable.TextDrawable;
 public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHolder> {
 
     private Player[] itemsData;
+    Context context;
 
-    public RankingAdapter(Player[] itemsData) {
+    public RankingAdapter(Player[] itemsData, Context context) {
         this.itemsData = itemsData;
+        this.context = context;
     }
 
     @Override
@@ -39,14 +44,14 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHold
 
         String vicDefText = "V " + itemsData[position].getVictories() + " / D " + itemsData[position].getDefeats();
         String pointsText = itemsData[position].getPoints() + " Points";
-        String indicText;
+        Drawable indic;
 
         if(itemsData[position].getIndic()==-1){
-            indicText = "v";
+            indic = ContextCompat.getDrawable(context, R.drawable.ic_down);
         }else if(itemsData[position].getIndic()==1){
-            indicText = "^";
+            indic = ContextCompat.getDrawable(context, R.drawable.ic_up);
         }else{
-            indicText = "-";
+            indic = ContextCompat.getDrawable(context, R.drawable.ic_sameRank);
         }
 
         String rank = Integer.toString(position+1);
@@ -58,7 +63,8 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHold
         viewHolder.name.setText(itemsData[position].getName());
         viewHolder.vicDef.setText(vicDefText);
         viewHolder.points.setText(pointsText);
-        viewHolder.indic.setText(indicText);
+
+        viewHolder.indic.setImageDrawable(indic);
 
         viewHolder.cv.setOnClickListener(new View.OnClickListener() {
 
@@ -86,7 +92,7 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHold
         public TextView name;
         public TextView vicDef;
         public TextView points;
-        public TextView indic;
+        public ImageView indic;
 
         public ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
@@ -96,7 +102,7 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHold
             name = (TextView) itemLayoutView.findViewById(R.id.player_name);
             vicDef = (TextView) itemLayoutView.findViewById(R.id.player_vic_def);
             points = (TextView) itemLayoutView.findViewById(R.id.player_points);
-            indic = (TextView) itemLayoutView.findViewById(R.id.player_indic);
+            indic = (ImageView) itemLayoutView.findViewById(R.id.player_indic);
         }
     }
 }

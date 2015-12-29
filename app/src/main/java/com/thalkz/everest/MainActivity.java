@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
         /** Initilize rankingAdapter and journalAdapter */
         journalAdapter = new JournalAdapter(new Event[0]);
-        rankingAdapter = new RankingAdapter(new Player[0]);
+        rankingAdapter = new RankingAdapter(new Player[0], this);
 
         /** Setting the PageViewer */
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
