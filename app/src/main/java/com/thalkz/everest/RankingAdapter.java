@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,8 +20,8 @@ import com.amulyakhare.textdrawable.TextDrawable;
 
 public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHolder> {
 
-    private Player[] itemsData;
     Context context;
+    private Player[] itemsData;
 
     public RankingAdapter(Player[] itemsData, Context context) {
         this.itemsData = itemsData;
@@ -47,15 +46,15 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHold
         String pointsText = itemsData[position].getPoints() + " Points";
         Drawable indic;
 
-        if(itemsData[position].getIndic()==-1){
+        if (itemsData[position].getIndic() == -1) {
             indic = ContextCompat.getDrawable(context, R.drawable.ic_down);
-        }else if(itemsData[position].getIndic()==1){
+        } else if (itemsData[position].getIndic() == 1) {
             indic = ContextCompat.getDrawable(context, R.drawable.ic_up);
-        }else{
+        } else {
             indic = ContextCompat.getDrawable(context, R.drawable.ic_same_rank);
         }
 
-        String rank = Integer.toString(position+1);
+        String rank = Integer.toString(position + 1);
 
         TextDrawable drawable = TextDrawable.builder()
                 .buildRound(rank, R.color.colorPrimary); //This can be changed to a real color using getResources().getColor()

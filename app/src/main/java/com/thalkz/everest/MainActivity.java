@@ -10,12 +10,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,8 +29,6 @@ import com.microsoft.windowsazure.mobileservices.table.sync.synchandler.SimpleSy
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +36,10 @@ import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static int INITIAL_POINTS = 1000;
+    public static JournalAdapter journalAdapter;
+    public static RankingAdapter rankingAdapter;
+    Context context;
     private MobileServiceClient client;
     private Event[] eList;
     private Player[] pList;
@@ -49,11 +47,6 @@ public class MainActivity extends AppCompatActivity {
     private MobileServiceSyncTable<Player> pTable;
     private Query ePullQuery;
     private Query pPullQuery;
-
-    public static int INITIAL_POINTS = 1000;
-    public static JournalAdapter journalAdapter;
-    public static RankingAdapter rankingAdapter;
-    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,11 +140,11 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
 
             try {
-                Event testEvent = new Event(1, "Pops (+9) a battu Shila (-4) de justesse", 2015, 12, 24, 4, 16, 49, 0, "Pops");
+                Event testEvent = new Event(1, "Shouby (+9) fait frotter Kaboo (-2)", 2015, 12, 29, 4, 03, 00, 0, "Fortune");
                 eTable.insert(testEvent).get();
 
-                /*Player testPlayer = new Player("Pops","T56","2A");
-                pTable.insert(testPlayer).get();*/
+                Player testPlayer = new Player("Kaboo","U0","2A");
+                pTable.insert(testPlayer).get();
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -240,7 +233,9 @@ public class MainActivity extends AppCompatActivity {
             final MobileServiceList<Event> result = eTable.read(ePullQuery).get();
             List<Event> arrayList = new ArrayList<>();
 
-            for (Event e : result) {arrayList.add(e);}
+            for (Event e : result) {
+                arrayList.add(e);
+            }
 
             eList = new Event[arrayList.size()];
             arrayList.toArray(eList);
@@ -259,7 +254,9 @@ public class MainActivity extends AppCompatActivity {
             final MobileServiceList<Player> result = pTable.read(pPullQuery).get();
             List<Player> arrayList = new ArrayList<>();
 
-            for (Player p : result) {arrayList.add(p);}
+            for (Player p : result) {
+                arrayList.add(p);
+            }
 
             pList = new Player[arrayList.size()];
             arrayList.toArray(pList);
