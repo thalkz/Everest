@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private Query ePullQuery;
     private Query pPullQuery;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
         this.context = this;
 
         /** Setting the action bar */
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
 
         /** Initilize rankingAdapter and journalAdapter */
         journalAdapter = new JournalAdapter(new Event[0], this);
@@ -67,6 +69,15 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fm = getSupportFragmentManager();
         Fragment_Pager pagerAdapter = new Fragment_Pager(fm);
         pager.setAdapter(pagerAdapter);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tablayout);
+        tabLayout.setupWithViewPager(pager);
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_search);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_journal);
+        tabLayout.getTabAt(2).setIcon(R.drawable.ic_ranking);
+        tabLayout.getTabAt(3).setIcon(R.drawable.ic_profil);
+
+        pager.setCurrentItem(1);
 
         /** Creating a fab */
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
