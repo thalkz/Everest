@@ -1,20 +1,17 @@
-package com.thalkz.everest;
+package com.thalkz.everest.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.amulyakhare.textdrawable.TextDrawable;
+import com.thalkz.everest.objects.Player;
+import com.thalkz.everest.activities.ProfilActivity;
+import com.thalkz.everest.R;
 
 /**
  * RankingAdapter binds data to the Ranking recyclerView

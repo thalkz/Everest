@@ -1,13 +1,15 @@
-package com.thalkz.everest;
+package com.thalkz.everest.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class EventDetailActivity extends AppCompatActivity {
+import com.thalkz.everest.R;
+
+public class ProfilActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event_detail);
+        setContentView(R.layout.activity_profil);
     }
 }

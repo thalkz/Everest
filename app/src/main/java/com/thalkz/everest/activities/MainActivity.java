@@ -1,4 +1,4 @@
-package com.thalkz.everest;
+package com.thalkz.everest.activities;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -11,7 +11,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,6 +26,12 @@ import com.microsoft.windowsazure.mobileservices.table.sync.localstore.ColumnDat
 import com.microsoft.windowsazure.mobileservices.table.sync.localstore.MobileServiceLocalStoreException;
 import com.microsoft.windowsazure.mobileservices.table.sync.localstore.SQLiteLocalStore;
 import com.microsoft.windowsazure.mobileservices.table.sync.synchandler.SimpleSyncHandler;
+import com.thalkz.everest.R;
+import com.thalkz.everest.adapters.Fragment_Pager;
+import com.thalkz.everest.adapters.JournalAdapter;
+import com.thalkz.everest.adapters.RankingAdapter;
+import com.thalkz.everest.objects.Event;
+import com.thalkz.everest.objects.Player;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -40,9 +45,10 @@ public class MainActivity extends AppCompatActivity {
     public static int INITIAL_POINTS = 1000;
     public static JournalAdapter journalAdapter;
     public static RankingAdapter rankingAdapter;
-    Context context;
+    public Event[] eList;
+    public Context context;
+
     private MobileServiceClient client;
-    private Event[] eList;
     private Player[] pList;
     private MobileServiceSyncTable<Event> eTable;
     private MobileServiceSyncTable<Player> pTable;

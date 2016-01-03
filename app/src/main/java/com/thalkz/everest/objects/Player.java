@@ -1,4 +1,6 @@
-package com.thalkz.everest;
+package com.thalkz.everest.objects;
+
+import com.thalkz.everest.activities.MainActivity;
 
 /**
  * Player is the object referring to a user
@@ -16,7 +18,7 @@ public class Player {
     private String pFloor;
     private String pPromo;
 
-    Player(String pName, int pVictories, int pDefeats, int pPoints, String pFloor, String pPromo){
+    public Player(String pName, int pVictories, int pDefeats, int pPoints, String pFloor, String pPromo){
         this.pName = pName;
         this.pPoints = pPoints;
         this.pVictories = pVictories;
@@ -25,7 +27,7 @@ public class Player {
         this.pPromo = pPromo;
     }
 
-    Player(String pName, String pFloor, String pPromo){
+    public Player(String pName, String pFloor, String pPromo){
         this(pName, 0, 0, MainActivity.INITIAL_POINTS , pFloor, pPromo);
     }
 

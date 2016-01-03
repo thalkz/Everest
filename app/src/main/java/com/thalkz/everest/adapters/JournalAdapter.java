@@ -1,21 +1,17 @@
-package com.thalkz.everest;
+package com.thalkz.everest.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import com.thalkz.everest.objects.Event;
+import com.thalkz.everest.activities.EventDetailActivity;
+import com.thalkz.everest.R;
 
 /**
  * JournalAdapter binds data to the Journal recyclerView

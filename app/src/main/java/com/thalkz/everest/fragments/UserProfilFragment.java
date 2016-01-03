@@ -1,19 +1,24 @@
-package com.thalkz.everest;
+package com.thalkz.everest.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.thalkz.everest.R;
 
 /**
  * JournalFragment displays the journal.
  * All Events are published here.
  */
 
-public class SearchFragment extends Fragment {
+public class UserProfilFragment extends Fragment {
 
-    public SearchFragment(){
+    public UserProfilFragment(){
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.thalkz.everest;
+package com.thalkz.everest.objects;
 
 import java.util.Calendar;
 

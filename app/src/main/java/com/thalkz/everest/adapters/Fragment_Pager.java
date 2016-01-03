@@ -1,13 +1,13 @@
-package com.thalkz.everest;
+package com.thalkz.everest.adapters;
 
-import android.content.Context;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.thalkz.everest.fragments.JournalFragment;
+import com.thalkz.everest.fragments.RankingFragment;
+import com.thalkz.everest.fragments.SearchFragment;
+import com.thalkz.everest.fragments.UserProfilFragment;
 
 public class Fragment_Pager extends FragmentPagerAdapter {
 
