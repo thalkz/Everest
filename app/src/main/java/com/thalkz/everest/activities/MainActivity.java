@@ -30,6 +30,7 @@ import com.thalkz.everest.R;
 import com.thalkz.everest.adapters.Fragment_Pager;
 import com.thalkz.everest.adapters.JournalAdapter;
 import com.thalkz.everest.adapters.RankingAdapter;
+import com.thalkz.everest.lists.PlayerList;
 import com.thalkz.everest.objects.Event;
 import com.thalkz.everest.objects.Player;
 
@@ -69,21 +70,6 @@ public class MainActivity extends AppCompatActivity {
         /** Initilize rankingAdapter and journalAdapter */
         journalAdapter = new JournalAdapter(new Event[0], this);
         rankingAdapter = new RankingAdapter(new Player[0], this);
-
-        /** Setting the PageViewer */
-        ViewPager pager = (ViewPager) findViewById(R.id.pager);
-        FragmentManager fm = getSupportFragmentManager();
-        Fragment_Pager pagerAdapter = new Fragment_Pager(fm);
-        pager.setAdapter(pagerAdapter);
-
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tablayout);
-        tabLayout.setupWithViewPager(pager);
-        tabLayout.getTabAt(0).setIcon(R.drawable.ic_profil);
-        tabLayout.getTabAt(1).setIcon(R.drawable.ic_journal);
-        tabLayout.getTabAt(2).setIcon(R.drawable.ic_ranking);
-        tabLayout.getTabAt(3).setIcon(R.drawable.ic_search);
-
-        pager.setCurrentItem(1);
 
         /** Creating a fab */
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -126,6 +112,21 @@ public class MainActivity extends AppCompatActivity {
             /** getting Tables from cloud (slow) */
             pRefreshTable();
             eRefreshTable();
+
+            /** Setting the PageViewer */
+            ViewPager pager = (ViewPager) findViewById(R.id.pager);
+            FragmentManager fm = getSupportFragmentManager();
+            Fragment_Pager pagerAdapter = new Fragment_Pager(fm);
+            pager.setAdapter(pagerAdapter);
+
+            TabLayout tabLayout = (TabLayout) findViewById(R.id.tablayout);
+            tabLayout.setupWithViewPager(pager);
+            tabLayout.getTabAt(0).setIcon(R.drawable.ic_profil);
+            tabLayout.getTabAt(1).setIcon(R.drawable.ic_journal);
+            tabLayout.getTabAt(2).setIcon(R.drawable.ic_ranking);
+            tabLayout.getTabAt(3).setIcon(R.drawable.ic_search);
+
+            pager.setCurrentItem(1);
 
 
         } catch (MalformedURLException e) {
@@ -229,6 +230,7 @@ public class MainActivity extends AppCompatActivity {
                                 pList = new Player[arrayList.size()];
                                 arrayList.toArray(pList);
 
+                                PlayerList.remplace(pList);
                                 rankingAdapter.updateData(pList);
 
                             } catch (Exception e) {
@@ -278,6 +280,7 @@ public class MainActivity extends AppCompatActivity {
             pList = new Player[arrayList.size()];
             arrayList.toArray(pList);
 
+            PlayerList.remplace(pList);
             rankingAdapter.updateData(pList);
 
         } catch (Exception e) {
@@ -334,38 +337,6 @@ public class MainActivity extends AppCompatActivity {
             Log.e("ExecException", e.getMessage());
         }
     }
-
-    /*public void pSetLocalStore() {
-        //Set up the local Store
-        SQLiteLocalStore localStore = new SQLiteLocalStore(client.getContext(), "Player", null, 1);
-        SimpleSyncHandler handler = new SimpleSyncHandler();
-        MobileServiceSyncContext syncContext = client.getSyncContext();
-
-        //Set up the table definition of the local store
-        Map<String, ColumnDataType> pTableDefinition = new HashMap<>();
-        pTableDefinition.put("Id", ColumnDataType.String);
-        pTableDefinition.put("pName", ColumnDataType.String);
-        pTableDefinition.put("pPoints", ColumnDataType.Integer);
-        pTableDefinition.put("pVictories", ColumnDataType.Integer);
-        pTableDefinition.put("pDefeats", ColumnDataType.Integer);
-        pTableDefinition.put("pIndicator", ColumnDataType.Integer);
-        pTableDefinition.put("pFloor", ColumnDataType.String);
-        pTableDefinition.put("pPromo", ColumnDataType.String);
-
-        //Initialize the local store
-        try {
-
-            localStore.defineTable("Player", pTableDefinition);
-            syncContext.initialize(pLocalStore, handler).get();
-
-        } catch (MobileServiceLocalStoreException e) {
-            Log.e("MSLocalStoreException", e.getMessage());
-        } catch (InterruptedException e) {
-            Log.e("InterrException", e.getMessage());
-        } catch (ExecutionException e) {
-            Log.e("ExecException", e.getMessage());
-        }
-    }*/
 
     public void eSyncAsync() {
         if (isNetworkAvailable()) {
