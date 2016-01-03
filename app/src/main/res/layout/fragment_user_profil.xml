@@ -7,13 +7,11 @@
     android:orientation="vertical">
 
     <FrameLayout
-        android:id="@+id/user_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="?android:listPreferredItemHeight">
 
         <RelativeLayout
-            android:id="@+id/event_rl"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:minHeight="?android:listPreferredItemHeight"
@@ -29,22 +27,19 @@
                 android:id="@+id/user_name_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
                 android:textColor="@android:color/primary_text_light"
+                android:layout_centerInParent="true"
                 android:text="Shouby T5"/>
 
         </RelativeLayout>
     </FrameLayout>
 
     <FrameLayout
-        android:id="@+id/user_rank_fl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="?android:listPreferredItemHeight">
 
         <RelativeLayout
-            android:id="@+id/user_rank_rl"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:minHeight="?android:listPreferredItemHeight"
@@ -57,23 +52,141 @@
             android:background="@color/white"> <!--TODO Put this in dimens -->
 
             <TextView
-                android:id="@+id/event_msg"
+                android:id="@+id/user_rank_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
                 android:textColor="@android:color/primary_text_light"
                 android:text="Rang"/>
 
             <TextView
-                android:id="@+id/event_poster"
+                android:id="@+id/user_rank_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 android:textSize="12sp"
                 android:text="5"/>
+
+        </RelativeLayout>
+    </FrameLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?android:listPreferredItemHeight">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:minHeight="?android:listPreferredItemHeight"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingEnd="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:padding="10dp"
+            android:layout_marginBottom="2dp"
+            android:background="@color/white"> <!--TODO Put this in dimens -->
+
+            <TextView
+                android:id="@+id/user_points_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:textColor="@android:color/primary_text_light"
+                android:text="Altitude"/>
+
+            <TextView
+                android:id="@+id/user_points_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:textSize="12sp"
+                android:text="1341 m"/>
+
+        </RelativeLayout>
+    </FrameLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?android:listPreferredItemHeight">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:minHeight="?android:listPreferredItemHeight"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingEnd="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:padding="10dp"
+            android:layout_marginBottom="2dp"
+            android:background="@color/white"> <!--TODO Put this in dimens -->
+
+            <TextView
+                android:id="@+id/user_victories_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:textColor="@android:color/primary_text_light"
+                android:text="Victoires"/>
+
+            <TextView
+                android:id="@+id/user_victories_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:textSize="12sp"
+                android:text="21"/>
+
+        </RelativeLayout>
+    </FrameLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?android:listPreferredItemHeight">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:minHeight="?android:listPreferredItemHeight"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingEnd="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:padding="10dp"
+            android:layout_marginBottom="2dp"
+            android:background="@color/white"> <!--TODO Put this in dimens -->
+
+            <TextView
+                android:id="@+id/user_defeats_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:textColor="@android:color/primary_text_light"
+                android:text="Defaites"/>
+
+            <TextView
+                android:id="@+id/user_defeats_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:textSize="12sp"
+                android:text="19"/>
 
         </RelativeLayout>
     </FrameLayout>
