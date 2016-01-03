@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.microsoft.windowsazure.mobileservices.MobileServiceList;
@@ -46,8 +47,10 @@ public class MainActivity extends AppCompatActivity {
     public static int INITIAL_POINTS = 1000;
     public static JournalAdapter journalAdapter;
     public static RankingAdapter rankingAdapter;
+    public static RankingAdapter searchAdapter;
     public Event[] eList;
     public Context context;
+    public static FloatingActionButton fab;
 
     private MobileServiceClient client;
     private Player[] pList;
@@ -70,9 +73,10 @@ public class MainActivity extends AppCompatActivity {
         /** Initilize rankingAdapter and journalAdapter */
         journalAdapter = new JournalAdapter(new Event[0], this);
         rankingAdapter = new RankingAdapter(new Player[0], this);
+        searchAdapter = new RankingAdapter(new Player[0], this);
 
         /** Creating a fab */
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab  = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -42,7 +43,7 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHold
         viewHolder.getAdapterPosition();
 
         String rankText = Integer.toString(position + 1);
-        String nameText = itemsData[position].getName();
+        final String nameText = itemsData[position].getName();
         String pointsText = itemsData[position].getPoints() + " m";
 
 
@@ -55,7 +56,12 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHold
             @Override
             public void onClick(View view) {
 
+                InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (inputMethodManager != null) {
+                    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
                 Intent profilIntent = new Intent(context, ProfilActivity.class);
+                profilIntent.putExtra("name", nameText);
                 context.startActivity(profilIntent);
 
             }

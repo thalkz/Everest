@@ -39,4 +39,23 @@ public class PlayerList {
         }
     }
 
+    public static Player[] search(String query){
+
+        String fQuery = query.toLowerCase();
+
+
+        if(query.equals("")){
+            return new Player[0];
+        }else{
+            ArrayList<Player> result = new ArrayList<>();
+
+            for(int i = 0; i<playerList.size(); i++){
+                Player p = playerList.get(i);
+                if(p.getName().toLowerCase().contains(fQuery)){
+                    result.add(p);
+                }
+            }
+            return result.toArray(new Player[result.size()]);
+        }
+    }
 }
