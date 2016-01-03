@@ -23,13 +23,13 @@ public class Fragment_Pager extends FragmentPagerAdapter {
         switch (position) {
 
             case 0:
-                return new SearchFragment();
+                return new UserProfilFragment();
             case 1:
                 return new JournalFragment();
             case 2:
                 return new RankingFragment();
             case 3:
-                return new UserProfilFragment();
+                return new SearchFragment();
             default:
                 return null;
         }

@@ -72,10 +72,10 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(pager);
-        tabLayout.getTabAt(0).setIcon(R.drawable.ic_search);
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_profil);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_journal);
         tabLayout.getTabAt(2).setIcon(R.drawable.ic_ranking);
-        tabLayout.getTabAt(3).setIcon(R.drawable.ic_profil);
+        tabLayout.getTabAt(3).setIcon(R.drawable.ic_search);
 
         pager.setCurrentItem(1);
 
