@@ -18,25 +18,22 @@ public class ProfilActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil);
 
-
-        getSupportActionBar().setTitle("Profil");
-
         String name = getIntent().getStringExtra("name");
         Player user = PlayerList.getByName(name);
 
-        String nameString = user.getName();
+        String nameString = name;
         String rankString = Integer.toString(PlayerList.getRankByName(nameString));
         String pointsString = user.getPoints() + " m";
         String vicString = Integer.toString(user.getVictories());
         String defString = Integer.toString(user.getDefeats());
 
-        TextView userName = (TextView) this.findViewById(R.id.profil_name_txt);
+        getSupportActionBar().setTitle(nameString);
+
         TextView userRank = (TextView) this.findViewById(R.id.profil_rank_score);
         TextView userPoints = (TextView) this.findViewById(R.id.profil_points_score);
         TextView userVictories = (TextView) this.findViewById(R.id.profil_victories_score);
         TextView userDefeats = (TextView) this.findViewById(R.id.profil_defeats_score);
 
-        userName.setText(nameString);
         userRank.setText(rankString);
         userPoints.setText(pointsString);
         userVictories.setText(vicString);
