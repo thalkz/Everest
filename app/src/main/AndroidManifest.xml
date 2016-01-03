@@ -25,8 +25,9 @@
         <activity
             android:name=".activities.ProfilActivity"
             android:parentActivityName=".activities.MainActivity" />
-        <activity android:name=".activities.EventDetailActivity"
-            android:parentActivityName=".activities.MainActivity"/>
+        <activity
+            android:name=".activities.EventDetailActivity"
+            android:parentActivityName=".activities.MainActivity" />
     </application>
 
 </manifest>

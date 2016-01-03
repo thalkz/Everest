@@ -38,13 +38,11 @@ public class UserProfilFragment extends Fragment {
         String vicString = Integer.toString(user.getVictories());
         String defString = Integer.toString(user.getDefeats());
 
-        TextView userName = (TextView) view.findViewById(R.id.user_name_txt);
         TextView userRank = (TextView) view.findViewById(R.id.user_rank_score);
         TextView userPoints = (TextView) view.findViewById(R.id.user_points_score);
         TextView userVictories = (TextView) view.findViewById(R.id.user_victories_score);
         TextView userDefeats = (TextView) view.findViewById(R.id.user_defeats_score);
 
-        userName.setText(nameString);
         userRank.setText(rankString);
         userPoints.setText(pointsString);
         userVictories.setText(vicString);

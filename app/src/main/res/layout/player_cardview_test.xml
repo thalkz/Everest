@@ -1,68 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <LinearLayout
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/player_cv"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="2dp"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:minHeight="45dp"
+    android:orientation="horizontal"
+    android:padding="5dp"> <!--TODO Put this in dimens -->
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:minHeight="45dp"
-        android:padding="5dp"
-        android:layout_marginBottom="2dp"
-        android:orientation="horizontal"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/player_cv"
-        android:clickable="true"
-        android:foreground="?android:attr/selectableItemBackground"> <!--TODO Put this in dimens -->
+        android:layout_weight="15"
+        android:background="@color/colorPrimary">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="15"
-            android:background="@color/colorPrimary">
+        <TextView
+            android:id="@+id/player_rank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="1"
+            android:textColor="@android:color/primary_text_light"
+            android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/player_rank"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textColor="@android:color/primary_text_light"
-                android:textSize="20sp"
-                android:text="1"/>
+    </FrameLayout>
 
-        </FrameLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="8"
+        android:background="@color/white">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="8"
-            android:background="@color/white">
+        <TextView
+            android:id="@+id/player_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:text="Pops T5"
+            android:textColor="@android:color/primary_text_light"
+            android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/player_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                android:textColor="@android:color/primary_text_light"
-                android:text="Pops T5"
-                android:textSize="16sp"/>
+    </FrameLayout>
 
-        </FrameLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="10"
+        android:background="@color/lightGray">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="10"
-            android:background="@color/lightGray">
+        <TextView
+            android:id="@+id/player_points"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:paddingStart="10dp"
+            android:text="1650 m"
+            android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/player_points"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:paddingStart="10dp"
-                android:paddingLeft="10dp"
-                android:text="1650 m"
-                android:textSize="16sp"/>
-
-        </FrameLayout>
-    </LinearLayout>
+    </FrameLayout>
+</LinearLayout>
 

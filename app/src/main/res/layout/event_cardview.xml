@@ -3,30 +3,30 @@
     android:id="@+id/event_cv"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="?android:listPreferredItemHeight"
     android:clickable="true"
-    android:foreground="?android:attr/selectableItemBackground">
+    android:foreground="?android:attr/selectableItemBackground"
+    android:minHeight="?android:listPreferredItemHeight">
 
 
     <RelativeLayout
         android:id="@+id/event_rl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:minHeight="?android:listPreferredItemHeight"
-        android:paddingStart="@dimen/activity_horizontal_margin"
-        android:paddingEnd="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:padding="10dp"
         android:layout_marginBottom="2dp"
-        android:background="@color/white"> <!--TODO Put this in dimens -->
+        android:background="@color/white"
+        android:minHeight="?android:listPreferredItemHeight"
+        android:padding="10dp"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin"> <!--TODO Put this in dimens -->
 
         <TextView
             android:id="@+id/event_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:textColor="@android:color/primary_text_light" />
 
         <TextView
@@ -43,7 +43,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:textSize="12sp"/>
+            android:textSize="12sp" />
 
     </RelativeLayout>
 </FrameLayout>

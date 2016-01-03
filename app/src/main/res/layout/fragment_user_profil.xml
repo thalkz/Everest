@@ -2,9 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.thalkz.everest.MainActivityFragment"
-    tools:showIn="@layout/activity_main"
-    android:orientation="vertical">
+    tools:showIn="@layout/activity_main">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -14,50 +14,23 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:minHeight="?android:listPreferredItemHeight"
-            android:paddingStart="@dimen/activity_horizontal_margin"
-            android:paddingEnd="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:padding="10dp"
             android:layout_marginBottom="2dp"
-            android:background="@color/white"> <!--TODO Put this in dimens -->
-
-            <TextView
-                android:id="@+id/user_name_txt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/primary_text_light"
-                android:layout_centerInParent="true" />
-
-        </RelativeLayout>
-    </FrameLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="?android:listPreferredItemHeight">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:background="@color/white"
             android:minHeight="?android:listPreferredItemHeight"
-            android:paddingStart="@dimen/activity_horizontal_margin"
-            android:paddingEnd="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
             android:padding="10dp"
-            android:layout_marginBottom="2dp"
-            android:background="@color/white"> <!--TODO Put this in dimens -->
+            android:paddingEnd="@dimen/activity_horizontal_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingStart="@dimen/activity_horizontal_margin"> <!--TODO Put this in dimens -->
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:textColor="@android:color/primary_text_light"
-                android:text="Rang"/>
+                android:text="Rang"
+                android:textColor="@android:color/primary_text_light" />
 
             <TextView
                 android:id="@+id/user_rank_score"
@@ -70,6 +43,7 @@
 
         </RelativeLayout>
     </FrameLayout>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -78,23 +52,23 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:minHeight="?android:listPreferredItemHeight"
-            android:paddingStart="@dimen/activity_horizontal_margin"
-            android:paddingEnd="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:padding="10dp"
             android:layout_marginBottom="2dp"
-            android:background="@color/white"> <!--TODO Put this in dimens -->
+            android:background="@color/white"
+            android:minHeight="?android:listPreferredItemHeight"
+            android:padding="10dp"
+            android:paddingEnd="@dimen/activity_horizontal_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingStart="@dimen/activity_horizontal_margin"> <!--TODO Put this in dimens -->
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:textColor="@android:color/primary_text_light"
-                android:text="Altitude"/>
+                android:text="Altitude"
+                android:textColor="@android:color/primary_text_light" />
 
             <TextView
                 android:id="@+id/user_points_score"
@@ -107,6 +81,7 @@
 
         </RelativeLayout>
     </FrameLayout>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -115,23 +90,23 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:minHeight="?android:listPreferredItemHeight"
-            android:paddingStart="@dimen/activity_horizontal_margin"
-            android:paddingEnd="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:padding="10dp"
             android:layout_marginBottom="2dp"
-            android:background="@color/white"> <!--TODO Put this in dimens -->
+            android:background="@color/white"
+            android:minHeight="?android:listPreferredItemHeight"
+            android:padding="10dp"
+            android:paddingEnd="@dimen/activity_horizontal_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingStart="@dimen/activity_horizontal_margin"> <!--TODO Put this in dimens -->
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:textColor="@android:color/primary_text_light"
-                android:text="Victoires"/>
+                android:text="Victoires"
+                android:textColor="@android:color/primary_text_light" />
 
             <TextView
                 android:id="@+id/user_victories_score"
@@ -144,6 +119,7 @@
 
         </RelativeLayout>
     </FrameLayout>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -152,23 +128,23 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:minHeight="?android:listPreferredItemHeight"
-            android:paddingStart="@dimen/activity_horizontal_margin"
-            android:paddingEnd="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:padding="10dp"
             android:layout_marginBottom="2dp"
-            android:background="@color/white"> <!--TODO Put this in dimens -->
+            android:background="@color/white"
+            android:minHeight="?android:listPreferredItemHeight"
+            android:padding="10dp"
+            android:paddingEnd="@dimen/activity_horizontal_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingStart="@dimen/activity_horizontal_margin"> <!--TODO Put this in dimens -->
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:textColor="@android:color/primary_text_light"
-                android:text="Defaites"/>
+                android:text="Defaites"
+                android:textColor="@android:color/primary_text_light" />
 
             <TextView
                 android:id="@+id/user_defeats_score"
