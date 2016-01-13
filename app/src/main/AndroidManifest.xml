@@ -28,6 +28,9 @@
         <activity
             android:name=".activities.EventDetailActivity"
             android:parentActivityName=".activities.MainActivity" />
+        <activity
+            android:name=".activities.MatchActivity"
+            android:parentActivityName=".activities.MainActivity" />
     </application>
 
 </manifest>

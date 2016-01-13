@@ -1,6 +1,7 @@
 package com.thalkz.everest.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -80,8 +81,8 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Ouvre GameActivity", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent matchIntent = new Intent(context, MatchActivity.class);
+                startActivity(matchIntent);
             }
         });
 
