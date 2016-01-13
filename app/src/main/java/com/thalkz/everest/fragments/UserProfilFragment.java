@@ -21,6 +21,12 @@ import com.thalkz.everest.objects.Player;
 
 public class UserProfilFragment extends Fragment {
 
+    String nameString = "";
+    String rankString = "";
+    String pointsString = "";
+    String vicString = "";
+    String defString = "";
+
     public UserProfilFragment(){
     }
 
@@ -32,11 +38,13 @@ public class UserProfilFragment extends Fragment {
 
         Player user = PlayerList.getByName("Pops");
 
-        String nameString = user.getName();
-        String rankString = Integer.toString(PlayerList.getRankByName(nameString));
-        String pointsString = user.getPoints() + " m";
-        String vicString = Integer.toString(user.getVictories());
-        String defString = Integer.toString(user.getDefeats());
+        if(user!=null){
+            nameString = user.getName();
+            rankString = Integer.toString(PlayerList.getRankByName(nameString));
+            pointsString = user.getPoints() + " m";
+            vicString = Integer.toString(user.getVictories());
+            defString = Integer.toString(user.getDefeats());
+        }
 
         TextView userRank = (TextView) view.findViewById(R.id.user_rank_score);
         TextView userPoints = (TextView) view.findViewById(R.id.user_points_score);
