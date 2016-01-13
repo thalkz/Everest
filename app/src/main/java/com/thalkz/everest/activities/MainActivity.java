@@ -91,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent matchIntent = new Intent(context, MatchActivity.class);
-                matchIntent.putExtra("opponentName", "Goomy");
                 startActivity(matchIntent);
             }
         });

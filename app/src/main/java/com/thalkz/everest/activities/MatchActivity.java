@@ -45,12 +45,12 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match);
         getSupportActionBar().setTitle("Publier un match");
-
         matchContext = this;
-        choosePlayer2Dialog();
+
+        String opponentName = getIntent().getStringExtra("opponentName");
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        String userName = sharedPref.getString("sharedName", "");
+        final String userName = sharedPref.getString("sharedName", "");
 
         p1 = (TextView) findViewById(R.id.p1);
         p2 = (TextView) findViewById(R.id.p2);
@@ -62,6 +62,12 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
         b2 = (TextView) findViewById(R.id.b2);
         TextView cancel = (TextView) findViewById(R.id.mCancel);
         TextView ok = (TextView) findViewById(R.id.mOk);
+
+        if(opponentName==null){
+            choosePlayer2Dialog();
+        }else{
+            p2.setText(opponentName);
+        }
 
         p1.setText(userName);
         c1.setText("0");
@@ -113,7 +119,7 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
                     int g2t = 0;
 
 
-                    Event e = new Event(p1t, p2t, c1t, c2t, r1t, r2t ,b1t, b2t, g1t, g2t, "Pops" );
+                    Event e = new Event(p1t, p2t, c1t, c2t, r1t, r2t ,b1t, b2t, g1t, g2t, userName );
                     MainActivity.insertEvent(e);
 
                     finish();
