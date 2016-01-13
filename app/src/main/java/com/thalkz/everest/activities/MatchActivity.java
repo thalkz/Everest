@@ -1,11 +1,19 @@
 package com.thalkz.everest.activities;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,6 +21,8 @@ import com.thalkz.everest.R;
 import com.thalkz.everest.lists.PlayerList;
 import com.thalkz.everest.objects.Event;
 import com.thalkz.everest.objects.Player;
+
+import java.util.concurrent.ExecutionException;
 
 /**
  * MatchActivity lets the user insert the results of a match
@@ -28,6 +38,7 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
     TextView r2;
     TextView b1;
     TextView b2;
+    Context matchContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +46,11 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_match);
         getSupportActionBar().setTitle("Publier un match");
 
-        String opponentName = getIntent().getStringExtra("opponentName");
-        Player opponent = PlayerList.getByName(opponentName);
+        matchContext = this;
+        choosePlayer2Dialog();
+
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        String userName = sharedPref.getString("sharedName", "");
 
         p1 = (TextView) findViewById(R.id.p1);
         p2 = (TextView) findViewById(R.id.p2);
@@ -49,8 +63,7 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
         TextView cancel = (TextView) findViewById(R.id.mCancel);
         TextView ok = (TextView) findViewById(R.id.mOk);
 
-        p1.setText("Pops");
-        p2.setText(opponentName);
+        p1.setText(userName);
         c1.setText("0");
         c2.setText("0");
         r1.setText("0");
@@ -64,6 +77,20 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
         r2.setOnClickListener(this);
         b1.setOnClickListener(this);
         b2.setOnClickListener(this);
+
+        p2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                choosePlayer2Dialog();
+            }
+        });
+
+        p1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                choosePlayer1Dialog();
+            }
+        });
 
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -220,4 +247,75 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    void choosePlayer2Dialog(){
+
+        final View aView = getLayoutInflater().inflate(R.layout.choose_player_dialog, null);
+        final AutoCompleteTextView xName = (AutoCompleteTextView) aView.findViewById(R.id.player_actv);
+
+        final ArrayAdapter<String> autoCompleteAdapter = new ArrayAdapter<>(matchContext, android.R.layout.simple_list_item_1, PlayerList.getStringList());
+        xName.setAdapter(autoCompleteAdapter);
+
+        final AlertDialog dialog = new AlertDialog.Builder(matchContext)
+                .setView(aView)
+                .setPositiveButton("Ok", null)
+                .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String x = xName.getText().toString();
+
+                if(PlayerList.getByName(x)!=null){
+                    p2.setText(x);
+                    dialog.dismiss();
+                }else{
+                    xName.setError("Inconnu");
+                }
+            }
+        });
+
+    }
+
+    void choosePlayer1Dialog(){
+
+        final View aView = getLayoutInflater().inflate(R.layout.choose_player_dialog, null);
+        final AutoCompleteTextView xName = (AutoCompleteTextView) aView.findViewById(R.id.player_actv);
+
+        final ArrayAdapter<String> autoCompleteAdapter = new ArrayAdapter<>(matchContext, android.R.layout.simple_list_item_1, PlayerList.getStringList());
+        xName.setAdapter(autoCompleteAdapter);
+
+        final AlertDialog dialog = new AlertDialog.Builder(matchContext)
+                .setView(aView)
+                .setPositiveButton("Ok", null)
+                .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String x = xName.getText().toString();
+
+                if(PlayerList.getByName(x)!=null){
+                    p1.setText(x);
+                    dialog.dismiss();
+                }else{
+                    xName.setError("Inconnu");
+                }
+            }
+        });
+
+    }
 }

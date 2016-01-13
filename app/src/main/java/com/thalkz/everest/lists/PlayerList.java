@@ -58,4 +58,16 @@ public class PlayerList {
             return result.toArray(new Player[result.size()]);
         }
     }
+
+    public static String[] getStringList(){
+
+        ArrayList<String> surnomList = new ArrayList<>();
+
+        for(int i = 0; i<playerList.size(); i++){
+            Player p = playerList.get(i);
+            surnomList.add(p.getName());
+        }
+
+        return surnomList.toArray(new String[surnomList.size()]);
+    }
 }

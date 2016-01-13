@@ -1,6 +1,8 @@
 package com.thalkz.everest.fragments;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -36,7 +38,10 @@ public class UserProfilFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_user_profil, container, false);
 
-        Player user = PlayerList.getByName("Pops");
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this.getContext());
+        String userName = sharedPref.getString("sharedName", "");
+
+        Player user = PlayerList.getByName(userName);
 
         if(user!=null){
             nameString = user.getName();
