@@ -128,4 +128,46 @@ public class Event {
         }
     }
 
+    public String getPlayer1(){
+        return ePlayer1;
+    }
+
+    public String getPlayer2(){
+        return ePlayer2;
+    }
+
+    public int getCaps1(){
+        return eCaps1;
+    }
+
+    public int getCaps2(){
+        return eCaps2;
+    }
+
+    public int getRev1(){
+        return eRev1;
+    }
+
+    public int getRev2(){
+        return eRev2;
+    }
+
+    public int getBel1(){
+        return eBel1;
+    }
+    public int getBel2(){
+        return eBel2;
+    }
+
+    public int getGain1(){
+        return eGain1;
+    }
+
+    public int getGain2(){
+        return eGain2;
+    }
+
+
+
+
 }
