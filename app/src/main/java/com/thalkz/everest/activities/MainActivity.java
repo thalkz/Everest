@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
             /** Pull Queries */
             pPullQuery = client.getTable(Player.class).where().orderBy("pPoints", QueryOrder.Descending);
-            ePullQuery = client.getTable(Event.class).where().orderBy("__createdAt", QueryOrder.Ascending);
+            ePullQuery = client.getTable(Event.class).where().orderBy("__createdAt", QueryOrder.Descending);
 
 
             /** initializing Local Stores */
@@ -144,6 +144,12 @@ public class MainActivity extends AppCompatActivity {
             }
             Log.w("onCreate: ", t.getMessage());
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        eRefreshTable();
     }
 
     @Override
@@ -397,11 +403,14 @@ public class MainActivity extends AppCompatActivity {
 
     public static void insertEvent(Event e){
         try {
+
             eTable.insert(e).get();
         } catch (InterruptedException e1) {
             Log.v("Interr", e1.getMessage());
         } catch (ExecutionException e2) {
             Log.v("Exec", e2.getMessage());
         }
+
+
     }
 }

@@ -55,6 +55,9 @@ public class JournalAdapter extends RecyclerView.Adapter<JournalAdapter.ViewHold
         viewHolder.a1c.setText(Integer.toString(itemsData[position].getGain1()));
         viewHolder.a2c.setText(Integer.toString(itemsData[position].getGain2()));
 
+        viewHolder.poster.setText(itemsData[position].getPoster());
+        viewHolder.date.setText(itemsData[position].getFormattedDate());
+
         viewHolder.cv.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -90,7 +93,8 @@ public class JournalAdapter extends RecyclerView.Adapter<JournalAdapter.ViewHold
         public TextView b2c;
         public TextView a1c;
         public TextView a2c;
-
+        public TextView poster;
+        public TextView date;
 
 
         public ViewHolder(View itemLayoutView) {
@@ -107,8 +111,8 @@ public class JournalAdapter extends RecyclerView.Adapter<JournalAdapter.ViewHold
             b2c = (TextView) itemLayoutView.findViewById(R.id.b2c);
             a1c = (TextView) itemLayoutView.findViewById(R.id.a1c);
             a2c = (TextView) itemLayoutView.findViewById(R.id.a2c);
-
-
+            poster = (TextView) itemLayoutView.findViewById(R.id.event_poster);
+            date = (TextView) itemLayoutView.findViewById(R.id.event_date);
         }
     }
 }

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/event_cv"
     android:layout_width="match_parent"
@@ -6,7 +7,9 @@
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
     android:minHeight="?android:listPreferredItemHeight"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:baselineAligned="false"
+    >
 
     <LinearLayout
         android:id="@+id/event_ll1"
@@ -57,7 +60,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:layout_marginBottom="2dp"
         android:padding="10dp"
         android:paddingEnd="@dimen/activity_horizontal_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -96,5 +98,32 @@
             android:layout_weight="1"/>
 
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="10dp"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="2dp">
+
+        <TextView
+            android:id="@+id/event_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/event_poster"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
 
 </LinearLayout>
