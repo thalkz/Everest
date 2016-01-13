@@ -1,11 +1,16 @@
 package com.thalkz.everest.activities;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -17,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.microsoft.windowsazure.mobileservices.MobileServiceList;
@@ -38,6 +44,8 @@ import com.thalkz.everest.objects.Player;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
     public Event[] eList;
     public Context context;
     public static FloatingActionButton fab;
+    public String userName;
 
     private MobileServiceClient client;
     private Player[] pList;
@@ -134,6 +143,14 @@ public class MainActivity extends AppCompatActivity {
 
             pager.setCurrentItem(1);
 
+            //load userName
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+            userName = sharedPref.getString("sharedName", "");
+
+            if(userName.equals("")){
+                createAccount();
+            }
+
 
         } catch (MalformedURLException e) {
             Log.w("Connection to Client", e.toString());
@@ -172,9 +189,6 @@ public class MainActivity extends AppCompatActivity {
             try {
                 Event testEvent = new Event(1, "Shouby (+9) fait frotter Kaboo (-2)", 2015, 12, 29, 4, 03, 00, 0, "Fortune");
                 eTable.insert(testEvent).get();
-
-                Player testPlayer = new Player("Kaboo","U0","2A");
-                pTable.insert(testPlayer).get();
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -412,5 +426,86 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    public void createAccount() {
+
+        final View aView = getLayoutInflater().inflate(R.layout.create_account_dialog, null);
+        final EditText aName = (EditText) aView.findViewById(R.id.new_name);
+
+        final AlertDialog dialog = new AlertDialog.Builder(context)
+                .setTitle("S'inscrire")
+                .setView(aView)
+                .setPositiveButton("Ça Part", null)
+                .setNegativeButton("Non merci", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .show();
+
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String nSurnom = aName.getText().toString();
+
+                if (nSurnom.length() < 3) {
+                    aName.setError("trop court");
+                } else if (nSurnom.length() > 10) {
+                    aName.setError("10 lettres max");
+                } else if (isNameUsed(nSurnom)) {
+                    aName.setError("Déjà utilisé");
+                } else if (!isAlpha(nSurnom)) {
+                    aName.setError("Lettres uniquement (sans accents)");
+                } else{
+
+                    Player newPlayer = new Player(nSurnom,"U0","0A");
+                    try {
+                        pTable.insert(newPlayer).get();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
+
+                    pRefreshTable();
+                    SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+                    sharedPref.edit().putString("sharedName", nSurnom).apply();
+
+                    /*CoordinatorLayout coordinatorLayout = (CoordinatorLayout) findViewById(R.id
+                            .coordinatorLayout);
+                    Snackbar snackbar = Snackbar
+                            .make(coordinatorLayout, "Inscription réussie", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+
+
+                    GregorianCalendar g = new GregorianCalendar();
+                    int jour = g.get(Calendar.DATE);
+                    int mois = g.get(Calendar.MONTH);
+                    int ans = g.get(Calendar.YEAR);
+
+                    Evenement e = new Evenement("inscription", nSurnom + " s'est inscrit", jour, mois, ans);
+                    ajouterAHistorique(e);
+
+                    refreshItemsFromTable();*/
+
+                    //dialog.dismiss();
+                }
+            }
+        });
+
+    }
+
+    public boolean isNameUsed(String newName){
+        for(Player p : pList){
+            if(p.getName().equals(newName)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isAlpha(String name) {
+        return name.matches("[a-zA-Z]+");
     }
 }
