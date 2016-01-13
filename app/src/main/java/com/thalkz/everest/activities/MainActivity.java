@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
     private MobileServiceClient client;
     private Player[] pList;
-    private MobileServiceSyncTable<Event> eTable;
+    public static MobileServiceSyncTable<Event> eTable;
     private MobileServiceSyncTable<Player> pTable;
     private Query ePullQuery;
     private Query pPullQuery;
@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent matchIntent = new Intent(context, MatchActivity.class);
+                matchIntent.putExtra("opponentName", "Goomy");
                 startActivity(matchIntent);
             }
         });
@@ -317,6 +318,12 @@ public class MainActivity extends AppCompatActivity {
         eTableDefinition.put("eMin", ColumnDataType.Integer);
         eTableDefinition.put("eSeason", ColumnDataType.Integer);
         eTableDefinition.put("ePoster", ColumnDataType.String);
+        eTableDefinition.put("eCaps1", ColumnDataType.Integer);
+        eTableDefinition.put("eCaps2", ColumnDataType.Integer);
+        eTableDefinition.put("eRev1", ColumnDataType.Integer);
+        eTableDefinition.put("eRev2", ColumnDataType.Integer);
+        eTableDefinition.put("eBel1", ColumnDataType.Integer);
+        eTableDefinition.put("eBel2", ColumnDataType.Integer);
 
         Map<String, ColumnDataType> pTableDefinition = new HashMap<>();
         pTableDefinition.put("Id", ColumnDataType.String);
@@ -386,5 +393,15 @@ public class MainActivity extends AppCompatActivity {
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    public static void insertEvent(Event e){
+        try {
+            eTable.insert(e).get();
+        } catch (InterruptedException e1) {
+            Log.v("Interr", e1.getMessage());
+        } catch (ExecutionException e2) {
+            Log.v("Exec", e2.getMessage());
+        }
     }
 }

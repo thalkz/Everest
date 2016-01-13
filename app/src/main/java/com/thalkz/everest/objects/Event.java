@@ -6,6 +6,7 @@ import java.util.Calendar;
  * An Event is an item of the Journal
  * It can either be a match, a message or something else to display in the Journal
  */
+
 public class Event {
 
     private String Id;
@@ -24,9 +25,17 @@ public class Event {
     private int eSeason;
     private String ePoster;
 
+    private int eCaps1;
+    private int eCaps2;
+    private int eRev1;
+    private int eRev2;
+    private int eBel1;
+    private int eBel2;
+
+
     public Event(int eType, String eMessage, String ePlayer1, String ePlayer2,
                  int eGain1, int eGain2, int eYear, int eMonth, int eDayOfMonth, int eDayOfWeek,
-                 int eHour, int eMin, int eSeason, String ePoster) {
+                 int eHour, int eMin, int eSeason, String ePoster, int eCaps1, int eCaps2, int eRev1, int eRev2, int eBel1, int eBel2) {
 
         this.eType = eType;
         this.eMessage = eMessage;
@@ -42,14 +51,25 @@ public class Event {
         this.eMin = eMin;
         this.eSeason = eSeason;
         this.ePoster = ePoster;
+        this.eCaps1 = eCaps1;
+        this.eCaps2 = eCaps2;
+        this.eRev2 = eRev2;
+        this.eRev1 = eRev1;
+        this.eBel1 = eBel1;
+        this.eBel2 = eBel2;
 
     }
 
     public Event(int eType, String eMessage, int eYear, int eMonth, int eDayOfMonth, int eDayOfWeek,
                  int eHour, int eMin, int eSeason, String ePoster) {
 
-        this(eType,eMessage, "" , "" , 0,0,eYear,eMonth,eDayOfMonth,eDayOfWeek, eHour,eMin,eSeason,ePoster);
+        this(eType,eMessage, "" , "" , 0,0,eYear,eMonth,eDayOfMonth,eDayOfWeek, eHour,eMin,eSeason,ePoster,0,0,0,0,0,0);
 
+    }
+
+    public Event(String ePlayer1, String ePlayer2, int eCaps1, int eCaps2, int eRev1, int eRev2, int eBel1, int eBel2, int eGain1, int eGain2, String ePoster){
+
+        this(1,"",ePlayer1,ePlayer2,eGain1,eGain2,Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH)+1,Calendar.getInstance().get(Calendar.DAY_OF_MONTH), Calendar.getInstance().get(Calendar.DAY_OF_WEEK),Calendar.getInstance().get(Calendar.HOUR), Calendar.getInstance().get(Calendar.MINUTE), 1, ePoster, eCaps1, eCaps2, eRev1, eRev2, eBel1,eBel2);
     }
 
     public String getMessage() {
