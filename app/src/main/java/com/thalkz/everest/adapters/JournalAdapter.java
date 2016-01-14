@@ -6,13 +6,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.thalkz.everest.objects.Event;
-import com.thalkz.everest.activities.EventDetailActivity;
 import com.thalkz.everest.R;
+import com.thalkz.everest.activities.EventDetailActivity;
+import com.thalkz.everest.objects.Event;
 
 /**
  * JournalAdapter binds data to the Journal recyclerView
@@ -20,8 +19,8 @@ import com.thalkz.everest.R;
 
 public class JournalAdapter extends RecyclerView.Adapter<JournalAdapter.ViewHolder> {
 
-    private Event[] itemsData;
     Context context;
+    private Event[] itemsData;
 
     public JournalAdapter(Event[] itemsData, Context context) {
         this.itemsData = itemsData;
@@ -30,7 +29,7 @@ public class JournalAdapter extends RecyclerView.Adapter<JournalAdapter.ViewHold
 
     @Override
     public JournalAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                     int viewType) {
+                                                        int viewType) {
         View itemLayoutView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.event_cardview, null);
 

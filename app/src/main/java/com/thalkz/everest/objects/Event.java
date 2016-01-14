@@ -63,13 +63,13 @@ public class Event {
     public Event(int eType, String eMessage, int eYear, int eMonth, int eDayOfMonth, int eDayOfWeek,
                  int eHour, int eMin, int eSeason, String ePoster) {
 
-        this(eType,eMessage, "" , "" , 0,0,eYear,eMonth,eDayOfMonth,eDayOfWeek, eHour,eMin,eSeason,ePoster,0,0,0,0,0,0);
+        this(eType, eMessage, "", "", 0, 0, eYear, eMonth, eDayOfMonth, eDayOfWeek, eHour, eMin, eSeason, ePoster, 0, 0, 0, 0, 0, 0);
 
     }
 
-    public Event(String ePlayer1, String ePlayer2, int eCaps1, int eCaps2, int eRev1, int eRev2, int eBel1, int eBel2, int eGain1, int eGain2, String ePoster){
+    public Event(String ePlayer1, String ePlayer2, int eCaps1, int eCaps2, int eRev1, int eRev2, int eBel1, int eBel2, int eGain1, int eGain2, String ePoster) {
 
-        this(1,"",ePlayer1,ePlayer2,eGain1,eGain2,Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH)+1,Calendar.getInstance().get(Calendar.DAY_OF_MONTH), Calendar.getInstance().get(Calendar.DAY_OF_WEEK),Calendar.getInstance().get(Calendar.HOUR), Calendar.getInstance().get(Calendar.MINUTE), 1, ePoster, eCaps1, eCaps2, eRev1, eRev2, eBel1,eBel2);
+        this(1, "", ePlayer1, ePlayer2, eGain1, eGain2, Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH) + 1, Calendar.getInstance().get(Calendar.DAY_OF_MONTH), Calendar.getInstance().get(Calendar.DAY_OF_WEEK), Calendar.getInstance().get(Calendar.HOUR), Calendar.getInstance().get(Calendar.MINUTE), 1, ePoster, eCaps1, eCaps2, eRev1, eRev2, eBel1, eBel2);
     }
 
     public String getMessage() {
@@ -80,15 +80,14 @@ public class Event {
 
         Calendar now = Calendar.getInstance();
         int DayOfMonth = now.get(Calendar.DAY_OF_MONTH);
-        int Month = now.get(Calendar.MONTH)+1;
+        int Month = now.get(Calendar.MONTH) + 1;
         int Year = now.get(Calendar.YEAR);
 
-        if(DayOfMonth==eDayOfMonth&&Month==eMonth&&Year==eYear){
+        if (DayOfMonth == eDayOfMonth && Month == eMonth && Year == eYear) {
             return "Ajd à " + Integer.toString(eHour) + ":" + Integer.toString(eMin);
-        }else if(DayOfMonth==(eDayOfMonth+1)&&Month==eMonth&&Year==eYear)
-        {
+        } else if (DayOfMonth == (eDayOfMonth + 1) && Month == eMonth && Year == eYear) {
             return "Hier à " + Integer.toString(eHour) + ":" + Integer.toString(eMin);
-        }else{
+        } else {
             return Integer.toString(eDayOfMonth) + " " + getShortMonthName(eMonth) + " à " + Integer.toString(eHour) + ":" + Integer.toString(eMin);
         }
     }
@@ -97,8 +96,8 @@ public class Event {
         return "posté par " + ePoster;
     }
 
-    public String getShortMonthName(int m){
-        switch(m){
+    public String getShortMonthName(int m) {
+        switch (m) {
             case 1:
                 return "Jan.";
             case 2:
@@ -128,46 +127,45 @@ public class Event {
         }
     }
 
-    public String getPlayer1(){
+    public String getPlayer1() {
         return ePlayer1;
     }
 
-    public String getPlayer2(){
+    public String getPlayer2() {
         return ePlayer2;
     }
 
-    public int getCaps1(){
+    public int getCaps1() {
         return eCaps1;
     }
 
-    public int getCaps2(){
+    public int getCaps2() {
         return eCaps2;
     }
 
-    public int getRev1(){
+    public int getRev1() {
         return eRev1;
     }
 
-    public int getRev2(){
+    public int getRev2() {
         return eRev2;
     }
 
-    public int getBel1(){
+    public int getBel1() {
         return eBel1;
     }
-    public int getBel2(){
+
+    public int getBel2() {
         return eBel2;
     }
 
-    public int getGain1(){
+    public int getGain1() {
         return eGain1;
     }
 
-    public int getGain2(){
+    public int getGain2() {
         return eGain2;
     }
-
-
 
 
 }

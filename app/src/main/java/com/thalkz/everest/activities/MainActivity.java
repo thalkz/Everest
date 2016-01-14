@@ -10,9 +10,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
@@ -21,7 +19,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
@@ -44,8 +41,6 @@ import com.thalkz.everest.objects.Player;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,18 +52,29 @@ public class MainActivity extends AppCompatActivity {
     public static JournalAdapter journalAdapter;
     public static RankingAdapter rankingAdapter;
     public static RankingAdapter searchAdapter;
+    public static FloatingActionButton fab;
+    public static MobileServiceSyncTable<Event> eTable;
     public Event[] eList;
     public Context context;
-    public static FloatingActionButton fab;
     public String userName;
-
     private MobileServiceClient client;
     private Player[] pList;
-    public static MobileServiceSyncTable<Event> eTable;
     private MobileServiceSyncTable<Player> pTable;
     private Query ePullQuery;
     private Query pPullQuery;
 
+    public static void insertEvent(Event e) {
+        try {
+
+            eTable.insert(e).get();
+        } catch (InterruptedException e1) {
+            Log.v("Interr", e1.getMessage());
+        } catch (ExecutionException e2) {
+            Log.v("Exec", e2.getMessage());
+        }
+
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         searchAdapter = new RankingAdapter(new Player[0], this);
 
         /** Creating a fab */
-        fab  = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -146,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
             userName = sharedPref.getString("sharedName", "");
 
-            if(userName.equals("")){
+            if (userName.equals("")) {
                 createAccount();
             }
 
@@ -196,15 +202,6 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
 
-            try {
-                Event testEvent = new Event(1, "Shouby (+9) fait frotter Kaboo (-2)", 2015, 12, 29, 4, 03, 00, 0, "Fortune");
-                eTable.insert(testEvent).get();
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
             return true;
         }
 
@@ -425,19 +422,6 @@ public class MainActivity extends AppCompatActivity {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-    public static void insertEvent(Event e){
-        try {
-
-            eTable.insert(e).get();
-        } catch (InterruptedException e1) {
-            Log.v("Interr", e1.getMessage());
-        } catch (ExecutionException e2) {
-            Log.v("Exec", e2.getMessage());
-        }
-
-
-    }
-
     public void createAccount() {
 
         final View aView = getLayoutInflater().inflate(R.layout.create_account_dialog, null);
@@ -467,48 +451,30 @@ public class MainActivity extends AppCompatActivity {
                     aName.setError("Déjà utilisé");
                 } else if (!isAlpha(nSurnom)) {
                     aName.setError("Lettres uniquement (sans accents)");
-                } else{
+                } else {
 
-                    Player newPlayer = new Player(nSurnom,"U0","0A");
+                    Player newPlayer = new Player(nSurnom, "U0", "0A");
                     try {
                         pTable.insert(newPlayer).get();
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        Log.v("pTable insert Interr", e.getMessage());
                     } catch (ExecutionException e) {
-                        e.printStackTrace();
+                        Log.v("pTable insert Exec", e.getMessage());
                     }
 
                     pRefreshTable();
                     SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
                     sharedPref.edit().putString("sharedName", nSurnom).apply();
 
-                    /*CoordinatorLayout coordinatorLayout = (CoordinatorLayout) findViewById(R.id
-                            .coordinatorLayout);
-                    Snackbar snackbar = Snackbar
-                            .make(coordinatorLayout, "Inscription réussie", Snackbar.LENGTH_LONG);
-                    snackbar.show();
-
-
-                    GregorianCalendar g = new GregorianCalendar();
-                    int jour = g.get(Calendar.DATE);
-                    int mois = g.get(Calendar.MONTH);
-                    int ans = g.get(Calendar.YEAR);
-
-                    Evenement e = new Evenement("inscription", nSurnom + " s'est inscrit", jour, mois, ans);
-                    ajouterAHistorique(e);
-
-                    refreshItemsFromTable();*/
-
-                    //dialog.dismiss();
                 }
             }
         });
 
     }
 
-    public boolean isNameUsed(String newName){
-        for(Player p : pList){
-            if(p.getName().equals(newName)){
+    public boolean isNameUsed(String newName) {
+        for (Player p : pList) {
+            if (p.getName().equals(newName)) {
                 return true;
             }
         }

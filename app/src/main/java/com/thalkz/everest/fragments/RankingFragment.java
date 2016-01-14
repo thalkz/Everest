@@ -1,6 +1,5 @@
 package com.thalkz.everest.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -9,10 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 
-import com.thalkz.everest.activities.MainActivity;
 import com.thalkz.everest.R;
+import com.thalkz.everest.activities.MainActivity;
 
 /**
  * RankingFragment displays the players rankings in order.

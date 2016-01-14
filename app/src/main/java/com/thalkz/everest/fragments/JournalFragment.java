@@ -1,7 +1,7 @@
 package com.thalkz.everest.fragments;
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,8 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.thalkz.everest.activities.MainActivity;
 import com.thalkz.everest.R;
+import com.thalkz.everest.activities.MainActivity;
 
 /**
  * JournalFragment displays the journal.
@@ -19,7 +19,7 @@ import com.thalkz.everest.R;
 
 public class JournalFragment extends Fragment {
 
-    public JournalFragment(){
+    public JournalFragment() {
     }
 
     @Override

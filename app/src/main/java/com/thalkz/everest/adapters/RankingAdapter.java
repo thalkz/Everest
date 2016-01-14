@@ -10,9 +10,9 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.thalkz.everest.objects.Player;
-import com.thalkz.everest.activities.ProfilActivity;
 import com.thalkz.everest.R;
+import com.thalkz.everest.activities.ProfilActivity;
+import com.thalkz.everest.objects.Player;
 
 /**
  * RankingAdapter binds data to the Ranking recyclerView

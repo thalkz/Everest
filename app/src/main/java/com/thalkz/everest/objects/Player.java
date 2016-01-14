@@ -18,7 +18,7 @@ public class Player {
     private String pFloor;
     private String pPromo;
 
-    public Player(String pName, int pVictories, int pDefeats, int pPoints, String pFloor, String pPromo){
+    public Player(String pName, int pVictories, int pDefeats, int pPoints, String pFloor, String pPromo) {
         this.pName = pName;
         this.pPoints = pPoints;
         this.pVictories = pVictories;
@@ -27,8 +27,8 @@ public class Player {
         this.pPromo = pPromo;
     }
 
-    public Player(String pName, String pFloor, String pPromo){
-        this(pName, 0, 0, MainActivity.INITIAL_POINTS , pFloor, pPromo);
+    public Player(String pName, String pFloor, String pPromo) {
+        this(pName, 0, 0, MainActivity.INITIAL_POINTS, pFloor, pPromo);
     }
 
     public int getPoints() {
@@ -51,13 +51,15 @@ public class Player {
         return Id;
     }
 
-    public int getIndic(){ return pIndicator; }
+    public int getIndic() {
+        return pIndicator;
+    }
 
-    public void addVictory(){
+    public void addVictory() {
         pVictories++;
     }
 
-    public void addDefeat(){
+    public void addDefeat() {
         pDefeats++;
     }
 }

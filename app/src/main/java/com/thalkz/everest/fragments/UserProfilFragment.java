@@ -4,9 +4,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +26,7 @@ public class UserProfilFragment extends Fragment {
     String vicString = "";
     String defString = "";
 
-    public UserProfilFragment(){
+    public UserProfilFragment() {
     }
 
     @Override
@@ -43,7 +40,7 @@ public class UserProfilFragment extends Fragment {
 
         Player user = PlayerList.getByName(userName);
 
-        if(user!=null){
+        if (user != null) {
             nameString = user.getName();
             rankString = Integer.toString(PlayerList.getRankByName(nameString));
             pointsString = user.getPoints() + " m";

@@ -3,6 +3,7 @@ package com.thalkz.everest.lists;
 import com.thalkz.everest.objects.Player;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * PlayerList is a list of allplayers
@@ -14,44 +15,42 @@ public class PlayerList {
     public PlayerList(ArrayList<Player> playerList) {
     }
 
-    public static Player getByName(String name){
-        for(int i = 0; i<playerList.size(); i++){
-            if(playerList.get(i).getName().equals(name)){
+    public static Player getByName(String name) {
+        for (int i = 0; i < playerList.size(); i++) {
+            if (playerList.get(i).getName().equals(name)) {
                 return playerList.get(i);
             }
         }
         return null;
     }
 
-    public static int getRankByName(String name){
-        for(int i = 0; i<playerList.size(); i++){
-            if(playerList.get(i).getName().equals(name)){
-                return i+1;
+    public static int getRankByName(String name) {
+        for (int i = 0; i < playerList.size(); i++) {
+            if (playerList.get(i).getName().equals(name)) {
+                return i + 1;
             }
         }
         return 0;
     }
 
-    public static void remplace(Player[] pList){
+    public static void remplace(Player[] pList) {
         playerList.clear();
-        for(int i = 0; i<pList.length ; i++){
-            playerList.add(pList[i]);
-        }
+        Collections.addAll(playerList, pList);
     }
 
-    public static Player[] search(String query){
+    public static Player[] search(String query) {
 
         String fQuery = query.toLowerCase();
 
 
-        if(query.equals("")){
+        if (query.equals("")) {
             return new Player[0];
-        }else{
+        } else {
             ArrayList<Player> result = new ArrayList<>();
 
-            for(int i = 0; i<playerList.size(); i++){
+            for (int i = 0; i < playerList.size(); i++) {
                 Player p = playerList.get(i);
-                if(p.getName().toLowerCase().contains(fQuery)){
+                if (p.getName().toLowerCase().contains(fQuery)) {
                     result.add(p);
                 }
             }
@@ -59,11 +58,11 @@ public class PlayerList {
         }
     }
 
-    public static String[] getStringList(){
+    public static String[] getStringList() {
 
         ArrayList<String> surnomList = new ArrayList<>();
 
-        for(int i = 0; i<playerList.size(); i++){
+        for (int i = 0; i < playerList.size(); i++) {
             Player p = playerList.get(i);
             surnomList.add(p.getName());
         }
