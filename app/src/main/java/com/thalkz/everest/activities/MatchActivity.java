@@ -24,6 +24,8 @@ import com.thalkz.everest.objects.Player;
 
 import java.util.concurrent.ExecutionException;
 
+import static java.lang.Math.pow;
+
 /**
  * MatchActivity lets the user insert the results of a match
  */
@@ -115,9 +117,22 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
                     int r2t = Integer.parseInt(r2.getText().toString());
                     int b1t = Integer.parseInt(b1.getText().toString());
                     int b2t = Integer.parseInt(b2.getText().toString());
-                    int g1t = 0;
-                    int g2t = 0;
 
+                    int g1t=0;
+                    int g2t=0;
+                    int[] results = new int[2];
+
+                    int points1 = PlayerList.getByName(p1t).getPoints();
+                    int points2 = PlayerList.getByName(p2t).getPoints();
+                    if(winner==1){
+                        results = getPoints(points1,points2);
+                        g1t = results[0];
+                        g2t = results[1];
+                    }else if(winner==2){
+                        results = getPoints(points2,points1);
+                        g1t = results[1];
+                        g2t = results[0];
+                    }
 
                     Event e = new Event(p1t, p2t, c1t, c2t, r1t, r2t ,b1t, b2t, g1t, g2t, userName );
                     MainActivity.insertEvent(e);
@@ -323,5 +338,49 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
             }
         });
 
+    }
+
+    public int[] getPoints(int win, int los) {
+
+        double elo_gagnant = win;
+        double elo_perdant = los;
+
+        double estimation_gagnant = 1.0 / (1.0 + pow(10.0, ((elo_perdant - elo_gagnant) / 400)));
+        double estimation_perdant = 1.0 / (1.0 + (pow(10.0, ((elo_gagnant - elo_perdant) / 400))));
+
+        int K_gagnant;
+        int K_perdant;
+
+        if (elo_gagnant < 1000) {
+            K_gagnant = 80;
+        } else if (1000 <= elo_gagnant && elo_gagnant < 2000) {
+            K_gagnant = 50;
+        } else if (2000 <= elo_gagnant && elo_gagnant < 2300) {
+            K_gagnant = 30;
+        } else {
+            K_gagnant = 20;
+        }
+
+        if (elo_perdant < 1000) {
+            K_perdant = 80;
+        } else if (1000 <= elo_perdant && elo_perdant < 2000) {
+            K_perdant = 50;
+        } else if (2000 <= elo_perdant && elo_perdant < 2300) {
+            K_perdant = 30;
+        } else {
+            K_perdant = 20;
+        }
+
+        int new_elo_gagnant = (int) (elo_gagnant + K_gagnant * (1 - estimation_gagnant));
+        int new_elo_perdant = (int) (elo_perdant + K_perdant * (0 - estimation_perdant));
+
+        int eloDiffGagnant = (int) (new_elo_gagnant - elo_gagnant);
+        int eloDiffPerdant = (int) (new_elo_perdant - elo_perdant);
+
+        int[] intArray = new int[2];
+        intArray[0] = eloDiffGagnant;
+        intArray[1] = eloDiffPerdant;
+
+        return intArray;
     }
 }

@@ -165,7 +165,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        eRefreshLocalTable();
+        pRefreshLocalTable();
+
+        pSyncAsync();
+        eSyncAsync();
+
+
         eRefreshTable();
+        pRefreshTable();
+
+        Log.v("onResume", "Refresh all tables");
     }
 
     @Override
@@ -507,4 +518,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean isAlpha(String name) {
         return name.matches("[a-zA-Z]+");
     }
+
+
 }
