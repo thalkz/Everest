@@ -170,11 +170,11 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
         }
 
         if(score+1 == max){
-            v.setBackground(getDrawable(R.color.colorPrimary));
+            v.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
             ((TextView) v).setTextColor(Color.WHITE);
         }
         else{
-            v.setBackground(getDrawable(R.color.white));
+            v.setBackgroundColor(getResources().getColor(R.color.white));
             ((TextView) v).setTextColor(Color.BLACK);
         }
     }
